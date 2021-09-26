@@ -1,5 +1,25 @@
 # CuisineQuest V2 (NextJS and Firebase)
+
+CuisineQuest is a recipe browser made using React, NextJS, [Tailwind](https://tailwindcss.com/), and the [Spoonacular](https://spoonacular.com/food-api) API.
+
 View the [Figma](https://www.figma.com/file/3XKkJLAIlIsSjV0vpkz266/CuisineQuestV2?node-id=0%3A1) Prototype.
+
+---
+
+## How to run
+
+### REQUIRES AN API KEY FROM SPOONACULAR TO QUERY
+
+Save the api key in a .env file with the name of: `REACT_APP_RECIPES_API_KEY={your_api_key_here}`
+
+**example search query with no params**
+
+`api.spoonacular.com/recipes/complexSearch/?apiKey={your_api_key_here}=salad&diet=ketogenic&intolerances=egg,gluten&excludeIngredients=tomato`
+
+**example search query with no params**
+
+`api.spoonacular.com/recipes/complexSearch/?apiKey={your_api_key_here}=salad&diet=ketogenic&intolerances=egg,gluten&excludeIngredients=tomato`
+
 
 ## Previous Version info
 

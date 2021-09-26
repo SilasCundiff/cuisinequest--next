@@ -53,6 +53,7 @@ function MyApp({ Component, pageProps }) {
   const toggleAuthForDebugging = () => {
     setUserAuthenticated(!userAuthenticated);
   };
+
   return (
     <>
       <UserAuthProvider
