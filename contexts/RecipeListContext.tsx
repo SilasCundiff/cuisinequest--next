@@ -9,6 +9,7 @@ type RecipeListProviderProps = {
 
 const RecipeListProvider = (props: RecipeListProviderProps) => {
   const { value, children } = props;
+
   return (
     <RecipeListContext.Provider value={value}>
       {children}
