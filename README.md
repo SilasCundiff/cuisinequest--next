@@ -20,6 +20,17 @@ Save the api key in a .env file with the name of: `REACT_APP_RECIPES_API_KEY={yo
 
 `api.spoonacular.com/recipes/complexSearch/?apiKey={your_api_key_here}=salad&diet=ketogenic&intolerances=egg,gluten&excludeIngredients=tomato`
 
+## User Data
+
+The user data will be used to provide certain functionality and conveniences to the user, such as a list of favorites they can easily view, and default search filters.
+
+     - Usernames collection contains a list of users
+     - Each user in the collection has the following
+       - Favorites collection
+       - Disliked ingredients collection
+       - A Diet Type
+       - An allergy/intolerance collection
+
 
 ## Previous Version info
 

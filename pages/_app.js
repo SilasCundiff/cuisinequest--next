@@ -1,30 +1,44 @@
 import { useState } from 'react';
 import '../styles/index.css';
-import { UserAuthProvider } from '@/contexts/UserAuthContext';
+import { UserProvider } from '@/contexts/UserContext';
 import { SearchProvider } from '@/contexts/SearchContext';
 import { RecipeListProvider } from '@/contexts/RecipeListContext';
 import { dummyData } from '../testData/exampleSearchResponse';
+import { useUserData } from '../lib/hooks';
+import Nav from '@/components/Nav';
 
 function MyApp({ Component, pageProps }) {
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
+  const {
+    user,
+    username,
+    diet,
+    intolerances,
+    favoriteRecipes,
+    dislikedIngredients,
+  } = useUserData();
+
   const [currentSearch, setCurrentSearch] = useState({ query: 'Salad' });
   const [recipeList, setRecipeList] = useState(dummyData.results);
 
-  const toggleAuthForDebugging = () => {
-    setUserAuthenticated(!userAuthenticated);
-  };
+  console.log(
+    'userData :>>',
+    username,
+    diet,
+    intolerances,
+    favoriteRecipes,
+    dislikedIngredients
+  );
 
   return (
     <>
-      <UserAuthProvider
-        value={{ authenticated: userAuthenticated, toggleAuthForDebugging }}
-      >
+      <UserProvider value={{ user, username }}>
         <SearchProvider value={{ search: currentSearch }}>
           <RecipeListProvider value={{ recipeList: recipeList }}>
+            <Nav />
             <Component {...pageProps} />
           </RecipeListProvider>
         </SearchProvider>
-      </UserAuthProvider>
+      </UserProvider>
     </>
   );
 }
