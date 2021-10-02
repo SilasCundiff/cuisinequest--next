@@ -1,18 +1,23 @@
 import { createContext, useContext, ReactNode } from 'react';
+import { UserData } from '../types';
 
-const UserContext = createContext({ user: null, username: null });
-
-type UserProviderProps = {
-  children: ReactNode;
-  value: {
-    user: object;
-    username: string;
-  };
+type UserContextProps = {
+  user?: {} | undefined;
+  username?: string | undefined;
+  diet?: string | undefined;
+  intolerances?: object[] | undefined;
+  favoritedRecipes?: object[] | undefined;
+  dislikedIngredients?: object[] | undefined;
 };
 
-const UserProvider = (props: UserProviderProps) => {
-  const { value, children } = props;
+interface UserProviderProps {
+  children: ReactNode;
+  value: UserData;
+}
 
+const UserContext = createContext<UserContextProps | null>(null);
+
+const UserProvider = ({ children, value }: UserProviderProps) => {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 

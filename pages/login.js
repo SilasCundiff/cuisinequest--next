@@ -1,8 +1,9 @@
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { useUserContext } from '@/contexts/UserContext';
-import { useEffect, useState, useCallback, useContext } from 'react';
-import debounce from 'lodash.debounce';
+import { useEffect, useState, useCallback } from 'react';
 
+import debounce from 'lodash.debounce';
+import Link from 'next/link';
 export default function Login(props) {
   const { user, username } = useUserContext();
 
@@ -26,19 +27,31 @@ const SignInButton = () => {
     await auth.signInWithPopup(googleAuthProvider);
   };
 
-  return <button onClick={signInWithGoogle}>Sign in with Google</button>;
+  return (
+    <button
+      className='font-semibold px-4 py-3 rounded text-md bg-gray-200 hover:bg-gray-300 text-gray-700 m-4 flex items-center text-xl '
+      onClick={signInWithGoogle}
+    >
+      <img src='google.png' className='w-10 mr-4' alt="google's logo" />
+      Sign in with Google
+    </button>
+  );
 };
 
 const SignOutButton = () => {
-  return <button onClick={() => auth.signOut()}>Sign Out</button>;
+  return (
+    <button>
+      <Link href='/'>Home</Link>
+    </button>
+  );
 };
 
 const UsernameForm = () => {
   const [formValue, setFormValue] = useState('');
   const [dietFormValue, setDietFormValue] = useState('');
-
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
+
   const { user, username } = useUserContext();
 
   const onSubmit = async (e) => {
@@ -46,14 +59,6 @@ const UsernameForm = () => {
 
     const userDoc = firestore.doc(`users/${user.uid}`);
     const usernameDoc = firestore.doc(`usernames/${formValue}`);
-    const favoriteRecipes = firestore
-      .doc(`usernames/${formValue}`)
-      .collection('/favoriteRecipes')
-      .doc('/0');
-    const dislikedIngredients = firestore
-      .doc(`usernames/${formValue}`)
-      .collection('/dislikedIngredients')
-      .doc('/0');
 
     const batch = firestore.batch();
 
@@ -62,27 +67,62 @@ const UsernameForm = () => {
       photoURL: user.photoURL,
       displayName: user.displayName,
     });
+
     batch.set(usernameDoc, {
       uid: user.uid,
-      intolerances: ['dairy', 'egg', 'wheat'],
+      intolerances: [
+        { name: 'dairy', avoid: false },
+        { name: 'egg', avoid: false },
+        { name: 'gluten', avoid: false },
+        { name: 'grain', avoid: false },
+        { name: 'peanut', avoid: false },
+        { name: 'seafood', avoid: false },
+        { name: 'sesame', avoid: false },
+        { name: 'shellfish', avoid: true },
+        { name: 'soy', avoid: false },
+        { name: 'sulfite', avoid: false },
+        { name: 'tree_nut', avoid: false },
+        { name: 'wheat', avoid: true },
+      ],
       diet: dietFormValue,
+      dislikedIngredients: [
+        {
+          id: 9040,
+          title: 'banana',
+        },
+        {
+          id: 19400,
+          title: 'banana chips',
+        },
+        {
+          id: 18019,
+          title: 'banana bread',
+        },
+      ],
+      favoritedRecipes: [
+        {
+          recipeId: 1096010,
+          title: 'Egg Salad Wrap',
+        },
+        {
+          recipeId: 642240,
+          title: 'Egg Salad Sandwiches With Tarragon',
+        },
+        {
+          recipeId: 637898,
+          title: 'Chicken and Dumpling Soup',
+        },
+        {
+          recipeId: 643933,
+          title: 'Fruid Salad Dressing',
+        },
+        {
+          recipeId: 157106,
+          title: 'Wedge Salad',
+        },
+      ],
     });
-    batch.set(favoriteRecipes, {
-      recipeId: 637898,
-      title: 'Chicken and Dumpling Soup',
-      imgLink: 'https://spoonacular.com/recipeImages/637898-556x370.jpg',
-    });
-    batch.set(dislikedIngredients, {
-      id: 9040,
-      title: 'banana',
-      imgLink: 'bananas.jpg',
-    });
-    console.log(
-      'batch, usernameDoc, userDoc :>> ',
-      batch,
-      usernameDoc,
-      userDoc
-    );
+
     await batch.commit();
   };
 
@@ -114,9 +154,8 @@ const UsernameForm = () => {
   const checkUsername = useCallback(
     debounce(async (username) => {
       if (username.length >= 3) {
-        const ref = firestore.doc(`usernames/${username}`);
-        const { exists } = await ref.get();
-        console.log('Firestore read executed!');
+        const userName = firestore.doc(`usernames/${username}`);
+        const { exists } = await userName.get();
         setIsValid(!exists);
         setLoading(false);
       }
