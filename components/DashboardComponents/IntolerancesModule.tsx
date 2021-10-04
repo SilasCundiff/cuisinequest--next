@@ -20,12 +20,15 @@ const IntolerancesModule = ({ intolerances }) => {
         <DashboardModule.Paragraph>
           We want everyone to have a safe journey. To make your quest a bit
           easier to navigate, we give you a way to filter by a list of
-          intolerances. Select allergies and intolerances to exclude, and you
-          can filter them from your searches.
+          intolerances.
+        </DashboardModule.Paragraph>
+        <DashboardModule.Paragraph>
+          Select allergies and intolerances to exclude, and you can filter them
+          from your searches.
         </DashboardModule.Paragraph>
       </DashboardModule.Container>
       <DashboardModule.Container>
-        <div>{intoleranceList}</div>
+        <ul className='grid grid-cols-3 list-none'>{intoleranceList}</ul>
       </DashboardModule.Container>
     </DashboardModule>
   );

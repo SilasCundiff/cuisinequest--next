@@ -7,9 +7,6 @@ import {
   FavoritesModule,
 } from '@/components/DashboardComponents';
 
-//! Example ingredient url
-// https://spoonacular.com/cdn/ingredients_100x100/{ingredientName}.jpg
-
 //! Example recipe image url
 // https://spoonacular.com/recipeImages/{recipeID}-312x231.jpg
 
@@ -25,8 +22,8 @@ const Dashboard = () => {
    */
 
   return (
-    <div className='container mx-auto p-6 bg-red-500'>
-      <div className='container flex flex-col mx-auto'>
+    <div className='font-sora container max-w-screen-2xl px-32 mx-auto my-40 '>
+      <div className='flex flex-col mx-auto '>
         <FavoritesModule favoritedRecipes={favoritedRecipes} />
         <IntolerancesModule intolerances={intolerances} />
         <DislikedIngredientsModule dislikedIngredients={dislikedIngredients} />

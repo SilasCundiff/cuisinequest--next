@@ -14,7 +14,7 @@ interface DashboardComposition {
 }
 
 const DashboardModule: React.FC & DashboardComposition = (props) => {
-  return <div>{props.children}</div>;
+  return <div className='mb-14'>{props.children}</div>;
 };
 
 DashboardModule.Heading = Heading;

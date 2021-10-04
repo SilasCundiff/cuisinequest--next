@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import { truncate } from '@/lib/helpers';
 interface RecipeCardProps {
   title: string;
@@ -11,7 +12,10 @@ const RecipeCard = ({ title, recipeId }: RecipeCardProps) => {
   const truncatedTitle = truncate(title, 20);
 
   return (
-    <div className='w-64 h-60  mr-12 rounded bg-white'>
+    <div
+      className='w-64 h-60  mr-12 rounded bg-white'
+      style={{ minWidth: '250px' }}
+    >
       <Link
         passHref
         href={`https://api.spoonacular.com/recipes/${recipeId}/information?apiKey=${apiKey}&information`}
