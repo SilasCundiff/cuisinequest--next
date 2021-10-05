@@ -42,13 +42,13 @@ const DislikedIngredientsModule = ({ dislikedIngredients }) => {
         <div className='flex flex-wrap'>
           <form className='min-w-full mb-5'>
             <input
-              className='w-1/2 bg-gray-200 text-2xl font-light tracking-widest px-2 py-1 rounded '
+              className='w-1/2 bg-gray-100 text-2xl font-light tracking-widest px-2 py-1 rounded '
               type='text'
               placeholder='Banish the Brussels Sprouts!'
             />
           </form>
           <div
-            className='h-72 flex-auto  p-4 bg-gray-200 mr-5'
+            className='h-72 flex-auto  p-4 bg-gray-100 mr-5'
             style={{ minWidth: '50%' }}
           >
             <h3 className='text-md text-green-900 tracking-wide mb-4'>
@@ -56,7 +56,7 @@ const DislikedIngredientsModule = ({ dislikedIngredients }) => {
             </h3>
           </div>
           <div
-            className='h-72 bg-gray-200 flex-auto p-4'
+            className='h-72 bg-gray-100 flex-auto p-4'
             style={{ minWidth: '45%' }}
           >
             <h3 className='text-md text-green-900 tracking-wide mb-4'>

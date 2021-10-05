@@ -4,7 +4,7 @@ import { useEffect, useState, useCallback } from 'react';
 
 import debounce from 'lodash.debounce';
 import Link from 'next/link';
-export default function Login(props) {
+export default function Login() {
   const { user, username } = useUserContext();
 
   return (
@@ -89,14 +89,17 @@ const UsernameForm = () => {
         {
           id: 9040,
           title: 'banana',
+          imageURL: 'bananas.jpg',
         },
         {
           id: 19400,
           title: 'banana chips',
+          imageURL: 'banana-chips.jpg',
         },
         {
           id: 18019,
           title: 'banana bread',
+          imageURL: 'banana-bread.jpg',
         },
       ],
       favoritedRecipes: [

@@ -1,15 +1,33 @@
+import { useState } from 'react';
 import DashboardModule from './DashboardModule';
 import { IntoleranceTypes } from '../../types';
+import { Checkbox } from '../FormComponents/Checkbox';
+import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
 const IntolerancesModule = ({ intolerances }) => {
+  const [checkedIntolerances, setCheckedIntolerances] = useState(intolerances);
+
+  function handleAvoidState(e, index) {
+    const newIntolerances = [...checkedIntolerances];
+    newIntolerances[index].avoid = e.target.checked;
+    setCheckedIntolerances(newIntolerances);
+  }
+
   const intoleranceList =
-    intolerances &&
-    intolerances.map((intolerance: IntoleranceTypes) => (
-      <li
-        className={`${intolerance.avoid ? 'text-red-500' : 'text-gray-700'}`}
-        key={intolerance.name}
-      >
-        {intolerance.name}
-      </li>
+    checkedIntolerances &&
+    checkedIntolerances.map((intolerance: IntoleranceTypes, index: number) => (
+      <div key={intolerance.name}>
+        <label
+          className={`${
+            intolerance.avoid ? 'text-red-500' : 'text-green-500'
+          } text-2xl font-bold`}
+        >
+          <Checkbox
+            checked={intolerance.avoid}
+            onChange={(e) => handleAvoidState(e, index)}
+          />
+          {StringCapitalizer(intolerance.name)} {index}
+        </label>
+      </div>
     ));
   return (
     <DashboardModule>
@@ -28,7 +46,9 @@ const IntolerancesModule = ({ intolerances }) => {
         </DashboardModule.Paragraph>
       </DashboardModule.Container>
       <DashboardModule.Container>
-        <ul className='grid grid-cols-3 list-none'>{intoleranceList}</ul>
+        <div className='grid grid-cols-3 list-none bg-gray-100'>
+          {intoleranceList}
+        </div>
       </DashboardModule.Container>
     </DashboardModule>
   );
