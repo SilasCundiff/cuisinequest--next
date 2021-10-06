@@ -1,7 +1,7 @@
 import { auth, firestore, googleAuthProvider } from '../lib/firebase';
 import { useUserContext } from '@/contexts/UserContext';
 import { useEffect, useState, useCallback } from 'react';
-
+import { DietSelect } from '@/components/Select/DietSelect';
 import debounce from 'lodash.debounce';
 import Link from 'next/link';
 export default function Login() {
@@ -48,7 +48,7 @@ const SignOutButton = () => {
 
 const UsernameForm = () => {
   const [formValue, setFormValue] = useState('');
-  const [dietFormValue, setDietFormValue] = useState('');
+  const [dietFormValue, setDietFormValue] = useState('unselected');
   const [isValid, setIsValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -145,9 +145,9 @@ const UsernameForm = () => {
       setIsValid(false);
     }
   };
-  const onChange2 = (e) => {
-    const value = e.target.value.toLowerCase();
-    setDietFormValue(value);
+
+  const handleChange = (e) => {
+    setDietFormValue(e.target.value);
   };
 
   useEffect(() => {
@@ -182,13 +182,8 @@ const UsernameForm = () => {
             isValid={isValid}
             loading={loading}
           />
-          <input
-            type='text'
-            name='diet'
-            placeholder='diet'
-            value={dietFormValue}
-            onChange={onChange2}
-          />
+
+          <DietSelect handleChange={handleChange} diet={dietFormValue} />
           <button type='submit' disabled={!isValid}>
             Choose
           </button>

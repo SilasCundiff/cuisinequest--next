@@ -17,6 +17,7 @@ export type IntoleranceTypes = {
 export type DislikedIngredientsTypes = {
     id: number;
     title: string;
+    imageURL: string;
   }
 
 

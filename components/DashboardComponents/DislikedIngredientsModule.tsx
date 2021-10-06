@@ -15,7 +15,7 @@ const DislikedIngredientsModule = ({ dislikedIngredients }) => {
           <img
             className='m-auto'
             style={{ maxHeight: '100px', maxWidth: '100px' }}
-            src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.title}s.jpg`}
+            src={`https://spoonacular.com/cdn/ingredients_100x100/${ingredient.imageURL}`}
             alt={`Visual representation of ${ingredient.title}`}
           />
           <div className='text-green-900 font-extralight'>

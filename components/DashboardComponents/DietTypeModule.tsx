@@ -1,6 +1,11 @@
+import { useState } from 'react';
 import DashboardModule from './DashboardModule';
+import { DietSelect } from '../Select/DietSelect';
+const DietTypeModule = ({ diet, setDashboardDiet }) => {
+  const handleChange = (e) => {
+    setDashboardDiet(e.target.value);
+  };
 
-const DietTypeModule = ({ diet }) => {
   return (
     <DashboardModule>
       <DashboardModule.Container>
@@ -15,13 +20,7 @@ const DietTypeModule = ({ diet }) => {
         </DashboardModule.Paragraph>
       </DashboardModule.Container>
       <DashboardModule.Container>
-        <select className='text-gray-600 text-4xl' value={diet}>
-          <option value='keto'>keto</option>
-          <option value='vegan'>vegan</option>
-          <option value='carnivore'>carnivore</option>
-          <option value='whole30'>whole30</option>
-          <option value='pizza'>pizza</option>
-        </select>
+        <DietSelect diet={diet} handleChange={handleChange} />
       </DashboardModule.Container>
     </DashboardModule>
   );

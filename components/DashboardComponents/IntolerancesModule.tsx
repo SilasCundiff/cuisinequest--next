@@ -1,34 +1,56 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import DashboardModule from './DashboardModule';
 import { IntoleranceTypes } from '../../types';
 import { Checkbox } from '../FormComponents/Checkbox';
 import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
-const IntolerancesModule = ({ intolerances }) => {
-  const [checkedIntolerances, setCheckedIntolerances] = useState(intolerances);
 
-  function handleAvoidState(e, index) {
-    const newIntolerances = [...checkedIntolerances];
+const initialIntolerances = [
+  { name: 'dairy', avoid: false },
+  { name: 'egg', avoid: false },
+  { name: 'gluten', avoid: false },
+  { name: 'grain', avoid: false },
+  { name: 'peanut', avoid: false },
+  { name: 'seafood', avoid: false },
+  { name: 'sesame', avoid: false },
+  { name: 'shellfish', avoid: false },
+  { name: 'soy', avoid: false },
+  { name: 'sulfite', avoid: false },
+  { name: 'tree_nut', avoid: false },
+  { name: 'wheat', avoid: false },
+];
+
+const IntolerancesModule = (props) => {
+  const { dashboardIntolerances, setDashboardIntolerances } = props;
+  console.log('dashboardIntolerances :>> ', dashboardIntolerances);
+  const handleAvoidState = (e, index: number) => {
+    const newIntolerances = [...dashboardIntolerances];
     newIntolerances[index].avoid = e.target.checked;
-    setCheckedIntolerances(newIntolerances);
-  }
+    setDashboardIntolerances(newIntolerances);
+  };
 
   const intoleranceList =
-    checkedIntolerances &&
-    checkedIntolerances.map((intolerance: IntoleranceTypes, index: number) => (
-      <div key={intolerance.name}>
-        <label
-          className={`${
-            intolerance.avoid ? 'text-red-500' : 'text-green-500'
-          } text-2xl font-bold`}
-        >
-          <Checkbox
-            checked={intolerance.avoid}
-            onChange={(e) => handleAvoidState(e, index)}
-          />
-          {StringCapitalizer(intolerance.name)} {index}
-        </label>
-      </div>
-    ));
+    dashboardIntolerances &&
+    dashboardIntolerances.map(
+      (intolerance: IntoleranceTypes, index: number) => (
+        <div key={intolerance.name} className='mx-auto my-6 min-w-1/4 flex'>
+          <label
+            className={`${
+              intolerance.avoid ? 'text-red-500' : 'text-green-500'
+            } text-3xl font-bold ml-12 mr-auto`}
+          >
+            <Checkbox
+              className='mr-1'
+              checked={intolerance.avoid}
+              onChange={(e) => handleAvoidState(e, index)}
+            />
+            {StringCapitalizer(intolerance.name)}
+          </label>
+        </div>
+      )
+    );
+
+  console.log('intolerancesList :>> ', dashboardIntolerances);
+
   return (
     <DashboardModule>
       <DashboardModule.Container>
@@ -46,9 +68,7 @@ const IntolerancesModule = ({ intolerances }) => {
         </DashboardModule.Paragraph>
       </DashboardModule.Container>
       <DashboardModule.Container>
-        <div className='grid grid-cols-3 list-none bg-gray-100'>
-          {intoleranceList}
-        </div>
+        <div className='flex flex-wrap bg-gray-100 p-6'>{intoleranceList}</div>
       </DashboardModule.Container>
     </DashboardModule>
   );
