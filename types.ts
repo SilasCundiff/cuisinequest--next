@@ -23,7 +23,11 @@ export type DislikedIngredientsTypes = {
 
 
 export interface UserData {
-  user?: {};
+  user?: {
+    uid: number,
+    photoURL: string,
+    displayName: string,
+  };
   username?: string;
   favoritedRecipes?: Array<FavoritedRecipesType> | undefined;
   intolerances?: Array<IntoleranceTypes> | undefined;

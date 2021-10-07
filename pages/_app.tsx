@@ -10,8 +10,6 @@ import Nav from '@/components/Nav';
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
 
-  console.log('userData :>> ', userData);
-
   const [currentSearch, setCurrentSearch] = useState({ query: 'Salad' });
   const [recipeList, setRecipeList] = useState(dummyData.results);
 

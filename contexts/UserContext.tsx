@@ -2,7 +2,13 @@ import { createContext, useContext, ReactNode } from 'react';
 import { UserData } from '../types';
 
 type UserContextProps = {
-  user?: {} | undefined;
+  user?:
+    | {
+        uid: number;
+        photoURL: string;
+        displayName: string;
+      }
+    | undefined;
   username?: string | undefined;
   diet?: string | undefined;
   intolerances?: object[] | undefined;

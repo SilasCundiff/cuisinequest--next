@@ -12,7 +12,11 @@ module.exports = {
       '3/4': '75%',
       full: '100%',
     },
-    extend: {},
+    extend: {
+      outline: {
+        green: '3px solid rgb(16, 185, 129)',
+      },
+    },
   },
   variants: {
     extend: {},

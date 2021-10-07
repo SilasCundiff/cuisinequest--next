@@ -5,7 +5,7 @@ import {
   HeadingProps,
   ParagraphProps,
   ContainerProps,
-} from './DashboardModule/ModuleComponents';
+} from './ModuleComponents/ModuleComponents';
 
 interface DashboardComposition {
   Heading: React.FC<HeadingProps>;
