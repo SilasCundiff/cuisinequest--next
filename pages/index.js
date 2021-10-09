@@ -1,4 +1,3 @@
-import Debugger from '@/components/debuggers';
 import { useUserContext } from '@/contexts/UserContext';
 
 export default function Home() {

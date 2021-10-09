@@ -1,4 +1,3 @@
-import { useState, useEffect } from 'react';
 import Module from '../Module';
 import { IntoleranceTypes } from '../../../types';
 import { Checkbox } from '../../FormComponents/Checkbox';
@@ -20,17 +19,17 @@ const initialIntolerances = [
 ];
 
 const IntolerancesModule = (props) => {
-  const { Intolerances = initialIntolerances, setUserIntolerances } = props;
+  const { userIntolerances = initialIntolerances, setUserIntolerances } = props;
 
   const handleAvoidState = (e, index: number) => {
-    const newIntolerances = [...Intolerances];
+    const newIntolerances = [...userIntolerances];
     newIntolerances[index].avoid = e.target.checked;
     setUserIntolerances(newIntolerances);
   };
 
   const intoleranceList =
-    Intolerances &&
-    Intolerances.map((intolerance: IntoleranceTypes, index: number) => (
+    userIntolerances &&
+    userIntolerances.map((intolerance: IntoleranceTypes, index: number) => (
       <div key={intolerance.name} className='mx-auto my-6 min-w-1/4 flex'>
         <label
           className={`${

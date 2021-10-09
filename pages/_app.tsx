@@ -6,7 +6,7 @@ import { RecipeListProvider } from '@/contexts/RecipeListContext';
 import { dummyData } from '../testData/exampleSearchResponse';
 import { useUserData } from '../lib/hooks';
 import Nav from '@/components/Nav';
-
+import GlobalStyle from '../styles/GlobalStyle';
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
 
@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }) {
       <UserProvider value={{ ...userData }}>
         <SearchProvider value={{ search: currentSearch }}>
           <RecipeListProvider value={{ recipeList: recipeList }}>
+            <GlobalStyle />
             <Nav />
             <Component {...pageProps} />
           </RecipeListProvider>

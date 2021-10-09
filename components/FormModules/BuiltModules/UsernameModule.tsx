@@ -1,3 +1,4 @@
+import { Search } from '@/components/Search/Search';
 export const UsernameModule = ({
   usernameFormValue,
   onChange,
@@ -8,15 +9,15 @@ export const UsernameModule = ({
 }) => {
   return (
     <div>
-      <h1 className='text-5xl mb-4 text-green-500 font-bold'>
+      <h1 className='text-5xl mb-10 text-green-500 font-bold'>
         Welcome! Before you dig in, please choose a username!
       </h1>
-      <input
-        className='w-1/2 bg-gray-100 text-2xl font-light tracking-widest px-2 py-1 rounded mb-4'
-        name='username'
-        placeholder='myname'
+
+      <Search
+        placeholder='Pick a name for your quest!'
         value={usernameFormValue}
         onChange={onChange}
+        name='username'
       />
       <UsernameMessage
         username={usernameFormValue}
@@ -37,20 +38,20 @@ function UsernameMessage({
   isFirstTimePast3Chars,
 }) {
   if (loading) {
-    return <p className='h-8 text-xl mb-10'>Checking...</p>;
+    return <p className='h-8 text-2xl mb-10'>Checking...</p>;
   } else if (!isLongEnough && username.length > 0) {
     return (
-      <p className='h-8 text-xl text-red-800 mb-10'>{username} is to short!</p>
+      <p className='h-8 text-2xl text-red-800 mb-10'>{username} is to short!</p>
     );
   } else if (isValid) {
     return (
-      <p className='h-8 text-xl text-green-700 mb-10'>
+      <p className='h-8 text-2xl text-green-700 mb-10'>
         {username} is available!
       </p>
     );
   } else if (username && !isValid && !isFirstTimePast3Chars) {
     return (
-      <p className='h-8 text-xl text-red-800 mb-10'>That username is taken!</p>
+      <p className='h-8 text-2xl text-red-800 mb-10'>That username is taken!</p>
     );
   } else {
     return <p className='h-8 mb-10'></p>;

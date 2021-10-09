@@ -3,10 +3,12 @@
 
 import { Container } from '@/components/FormModules/ModuleComponents';
 import UserDataForm from '@/components/UserDataForm';
+import { useUserContext } from '@/contexts/UserContext';
 const Dashboard = () => {
+  const { user } = useUserContext();
   return (
     <Container>
-      <UserDataForm />
+      {user ? <UserDataForm /> : <div>please login to view page</div>}
     </Container>
   );
 };

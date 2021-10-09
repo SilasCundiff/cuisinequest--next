@@ -5,7 +5,6 @@ import { useRouter } from 'next/dist/client/router';
 const Nav = () => {
   const { user } = useUserContext();
   const router = useRouter();
-  // console.log('router :>> ', router.pathname);
   const signOut = () => auth.signOut();
 
   return (

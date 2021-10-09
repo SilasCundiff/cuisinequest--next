@@ -1,24 +1,25 @@
-import { auth, googleAuthProvider } from '../lib/firebase';
 import { useUserContext } from '@/contexts/UserContext';
 import { useEffect } from 'react';
 import UserDataForm from '@/components/UserDataForm';
 import Router from 'next/router';
 import Container from '@/components/Containers/Container';
+import { signInWithGoogle } from '../lib/hooks';
+
 export default function Login() {
   const { user, username } = useUserContext();
 
   useEffect(() => {
     if (user && username) Router.push('/');
-  }, [user, username]);
+  }, [username]);
 
-  return <main>{user && !username ? <UserDataForm /> : <SignInButton />}</main>;
+  return (
+    <main>
+      {user && username === undefined ? <UserDataForm /> : <SignInButton />}
+    </main>
+  );
 }
 
 const SignInButton = () => {
-  const signInWithGoogle = async () => {
-    await auth.signInWithPopup(googleAuthProvider);
-  };
-
   return (
     <Container className='p-4 '>
       <div className='m-auto'>

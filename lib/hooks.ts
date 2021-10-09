@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
-import { auth, firestore } from './firebase';
+import { auth, firestore, googleAuthProvider } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { UserData } from 'types';
 
 export const useUserData = () : UserData => {
-  const [user] = useAuthState(auth);
+
+  const [user,loading, error] = useAuthState(auth);
   const [username, setUsername] = useState();
+
+  
   const [diet, setDiet] = useState(undefined);
   const [intolerances, setIntolerances] = useState(undefined);
   const [favoritedRecipes, setFavoritedRecipes] = useState(undefined);
@@ -22,7 +25,7 @@ export const useUserData = () : UserData => {
     } else {
       setUsername(null);
     }
-
+   
     return unsubscribe;
   }, [user]);
 
@@ -32,10 +35,16 @@ export const useUserData = () : UserData => {
     if (username) {
       const userNamesRef = firestore.collection('usernames').doc(username);
       unsubscribe = userNamesRef.onSnapshot((doc) => {
-        setFavoritedRecipes(doc.data()?.favoritedRecipes);
-        setDislikedIngredients(doc.data()?.dislikedIngredients);
-        setDiet(doc.data()?.diet);
-        setIntolerances(doc.data()?.intolerances);
+        const {diet, favoritedRecipes, dislikedIngredients, intolerances} =  doc.data()
+
+        setFavoritedRecipes(favoritedRecipes);
+        setDislikedIngredients(dislikedIngredients);
+        setDiet(diet);
+        setIntolerances(intolerances);
+        // setFavoritedRecipes(doc.data()?.favoritedRecipes);
+        // setDislikedIngredients(doc.data()?.dislikedIngredients);
+        // setDiet(doc.data()?.diet);
+        // setIntolerances(doc.data()?.intolerances);
       });
     } else {
       setFavoritedRecipes(undefined);
@@ -46,6 +55,7 @@ export const useUserData = () : UserData => {
     return unsubscribe;
   }, [username]);
 
+
   return {
     user,
     username,
@@ -54,4 +64,13 @@ export const useUserData = () : UserData => {
     dislikedIngredients,
     diet,
   };
+};
+
+
+export const signInWithGoogle = async () => {
+  try {
+    await auth.signInWithPopup(googleAuthProvider);
+  } catch (err) {
+    console.log(err);
+  }
 };

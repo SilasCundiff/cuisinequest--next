@@ -29,9 +29,11 @@ const FavoritesModule = ({ favoritedRecipes }) => {
         </Module.Paragraph>
       </Module.Container>
       <Module.Container>
-        <div className='flex p-6 bg-gray-200 overflow-x-auto'>
-          {favoritedRecipesList}
-        </div>
+        {favoritedRecipes && (
+          <div className='flex p-6 bg-gray-200 overflow-x-auto'>
+            {favoritedRecipesList}
+          </div>
+        )}
       </Module.Container>
     </Module>
   );
