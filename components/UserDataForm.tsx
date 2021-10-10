@@ -208,7 +208,11 @@ const UserDataForm = () => {
     <Container>
       <Toaster position='bottom-center' />
       {user && (
-        <form onSubmit={(e) => handleSubmit(e)}>
+        <form
+          onSubmit={(e) => {
+            handleSubmit(e);
+          }}
+        >
           <div className='flex flex-col mx-auto '>
             {username ? (
               <FavoritesModule favoritedRecipes={userFavorited} />

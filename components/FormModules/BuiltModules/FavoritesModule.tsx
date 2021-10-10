@@ -1,8 +1,8 @@
 import Module from '../Module';
 import RecipeCard from '@/components/RecipeCard/RecipeCard';
 import { FavoritedRecipesType } from '../../../types';
-
-const FavoritesModule = ({ favoritedRecipes }) => {
+import { memo } from 'react';
+const WrappedFavoritesModule = ({ favoritedRecipes }) => {
   const favoritedRecipesList =
     favoritedRecipes &&
     favoritedRecipes.map((recipe: FavoritedRecipesType) => {
@@ -29,14 +29,19 @@ const FavoritesModule = ({ favoritedRecipes }) => {
         </Module.Paragraph>
       </Module.Container>
       <Module.Container>
-        {favoritedRecipes && (
-          <div className='flex p-6 bg-gray-200 overflow-x-auto'>
+        {favoritedRecipes && favoritedRecipes.length > 0 && (
+          <div className='flex p-6 bg-gray-200 rounded overflow-x-auto'>
             {favoritedRecipesList}
           </div>
+        )}
+        {favoritedRecipes && favoritedRecipes.length === 0 && (
+          <span className='bg-gray-100 h-80 rounded flex items-center justify-center text-gray-600 text-2xl font-light'>
+            Your favorite recipes will show up here once you add some!
+          </span>
         )}
       </Module.Container>
     </Module>
   );
 };
-
+const FavoritesModule = memo(WrappedFavoritesModule);
 export { FavoritesModule };

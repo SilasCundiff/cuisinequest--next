@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 export interface HeadingProps {
   /**
    * expects a short string as a heading
@@ -21,18 +23,22 @@ export interface ContainerProps {
 /**
  *  A short h2 component to label the module
  */
-export const Heading = ({ children }: HeadingProps) => (
+const WrappedHeading = ({ children }: HeadingProps) => (
   <h2 className='text-green-500 text-5xl font-bold mb-5'>{children}</h2>
 );
 /**
  * A paragraph component to describe the module
  */
-export const Paragraph = ({ children }: ParagraphProps) => (
+const WrappedParagraph = ({ children }: ParagraphProps) => (
   <p className='text-gray-500 text-lg font-bold'>{children}</p>
 );
 /**
  *  A container for the heading + paragraph, or the functional component of the module
  */
-export const Container = ({ children }: ContainerProps) => (
+const WrappedContainer = ({ children }: ContainerProps) => (
   <div className='mb-8'>{children}</div>
 );
+const Heading = memo(WrappedHeading);
+const Paragraph = memo(WrappedParagraph);
+const Container = memo(WrappedContainer);
+export { Heading, Paragraph, Container };

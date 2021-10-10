@@ -1,6 +1,7 @@
 import Module from '../Module';
 import { DietSelect } from '../../Select/DietSelect';
-const DietTypeModule = ({ diet, setUserDiet }) => {
+import { memo } from 'react';
+const WrappedDietTypeModule = ({ diet, setUserDiet }) => {
   const handleChange = (e) => {
     setUserDiet(e.target.value);
   };
@@ -24,5 +25,5 @@ const DietTypeModule = ({ diet, setUserDiet }) => {
     </Module>
   );
 };
-
+const DietTypeModule = memo(WrappedDietTypeModule);
 export { DietTypeModule };

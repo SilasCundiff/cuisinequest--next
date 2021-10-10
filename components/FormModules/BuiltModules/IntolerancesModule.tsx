@@ -2,6 +2,7 @@ import Module from '../Module';
 import { IntoleranceTypes } from '../../../types';
 import { Checkbox } from '../../FormComponents/Checkbox';
 import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
+import { memo, useCallback, useMemo } from 'react';
 
 const initialIntolerances = [
   { name: 'dairy', avoid: false },
@@ -18,33 +19,39 @@ const initialIntolerances = [
   { name: 'wheat', avoid: false },
 ];
 
-const IntolerancesModule = (props) => {
+const WrappedIntolerancesModule = (props) => {
   const { userIntolerances = initialIntolerances, setUserIntolerances } = props;
 
-  const handleAvoidState = (e, index: number) => {
-    const newIntolerances = [...userIntolerances];
-    newIntolerances[index].avoid = e.target.checked;
-    setUserIntolerances(newIntolerances);
-  };
+  const handleAvoidState = useCallback(
+    (e, index: number) => {
+      const newIntolerances = [...userIntolerances];
+      newIntolerances[index].avoid = e.target.checked;
+      setUserIntolerances(newIntolerances);
+    },
+    [setUserIntolerances, userIntolerances]
+  );
 
-  const intoleranceList =
-    userIntolerances &&
-    userIntolerances.map((intolerance: IntoleranceTypes, index: number) => (
-      <div key={intolerance.name} className='mx-auto my-6 min-w-1/4 flex'>
-        <label
-          className={`${
-            intolerance.avoid ? 'text-red-500' : 'text-green-500'
-          } text-3xl font-bold ml-12 mr-auto`}
-        >
-          <Checkbox
-            className='mr-1'
-            checked={intolerance.avoid}
-            onChange={(e) => handleAvoidState(e, index)}
-          />
-          {StringCapitalizer(intolerance.name)}
-        </label>
-      </div>
-    ));
+  const intoleranceList = useMemo(() => {
+    return (
+      userIntolerances &&
+      userIntolerances.map((intolerance: IntoleranceTypes, index: number) => (
+        <div key={intolerance.name} className='mx-auto my-6 min-w-1/4 flex'>
+          <label
+            className={`${
+              intolerance.avoid ? 'text-red-500' : 'text-green-500'
+            } text-3xl font-bold ml-12 mr-auto`}
+          >
+            <Checkbox
+              className='mr-1'
+              checked={intolerance.avoid}
+              onChange={(e) => handleAvoidState(e, index)}
+            />
+            {StringCapitalizer(intolerance.name)}
+          </label>
+        </div>
+      ))
+    );
+  }, [userIntolerances, handleAvoidState]);
 
   return (
     <Module>
@@ -72,5 +79,13 @@ const IntolerancesModule = (props) => {
     </Module>
   );
 };
+
+const IntolerancesModule = memo(
+  WrappedIntolerancesModule,
+  (prevProps, nextProps) => {
+    if (prevProps.userIntolerances !== nextProps.userIntolerances) return false;
+    return true;
+  }
+);
 
 export { IntolerancesModule };

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { memo } from 'react';
 const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
   // Hide checkbox visually but remain accessible to screen readers.
   // Source: https://polished.js.org/docs/#hidevisually
@@ -52,7 +52,7 @@ const Icon = styled.svg`
   stroke-width: 2px;
 `;
 
-export const Checkbox = ({
+const WrappedCheckbox = ({
   className = null,
   checked,
   hide = false,
@@ -74,3 +74,6 @@ export const Checkbox = ({
     </StyledCheckbox>
   </CheckboxContainer>
 );
+
+const Checkbox = memo(WrappedCheckbox);
+export { Checkbox };
