@@ -6,34 +6,19 @@ import { RecipeListProvider } from '@/contexts/RecipeListContext';
 import { dummyData } from '../testData/exampleSearchResponse';
 import { useUserData } from '../lib/hooks';
 import Nav from '@/components/Nav';
-
+import GlobalStyle from '../styles/GlobalStyle';
 function MyApp({ Component, pageProps }) {
-  const {
-    user,
-    username,
-    diet,
-    intolerances,
-    favoriteRecipes,
-    dislikedIngredients,
-  } = useUserData();
+  const userData = useUserData();
 
   const [currentSearch, setCurrentSearch] = useState({ query: 'Salad' });
   const [recipeList, setRecipeList] = useState(dummyData.results);
 
-  console.log(
-    'userData :>>',
-    username,
-    diet,
-    intolerances,
-    favoriteRecipes,
-    dislikedIngredients
-  );
-
   return (
     <>
-      <UserProvider value={{ user, username }}>
+      <UserProvider value={{ ...userData }}>
         <SearchProvider value={{ search: currentSearch }}>
           <RecipeListProvider value={{ recipeList: recipeList }}>
+            <GlobalStyle />
             <Nav />
             <Component {...pageProps} />
           </RecipeListProvider>

@@ -1,18 +1,14 @@
 import { createContext, useContext, ReactNode } from 'react';
+import { UserData } from '../types';
 
-const UserContext = createContext({ user: null, username: null });
-
-type UserProviderProps = {
+interface UserProviderProps {
   children: ReactNode;
-  value: {
-    user: object;
-    username: string;
-  };
-};
+  value: UserData;
+}
 
-const UserProvider = (props: UserProviderProps) => {
-  const { value, children } = props;
+const UserContext = createContext<UserData | null>(null);
 
+const UserProvider = ({ children, value }: UserProviderProps) => {
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
