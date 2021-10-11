@@ -2,7 +2,21 @@ import Module from '../Module';
 import RecipeCard from '@/components/RecipeCard/RecipeCard';
 import { FavoritedRecipesType } from '../../../types';
 import { memo } from 'react';
-const WrappedFavoritesModule = ({ favoritedRecipes }) => {
+
+const WrappedFavoritesModule = ({
+  favoritedRecipes,
+  setUserFavorited,
+  RemoveFavorite,
+}) => {
+  const removeFromFavorites = (id: number) => {
+    if (favoritedRecipes && favoritedRecipes.length > 0) {
+      const filteredArray = favoritedRecipes.filter(
+        (recipe) => recipe.recipeId !== id
+      );
+      RemoveFavorite(filteredArray);
+    }
+  };
+
   const favoritedRecipesList =
     favoritedRecipes &&
     favoritedRecipes.map((recipe: FavoritedRecipesType) => {
@@ -11,6 +25,8 @@ const WrappedFavoritesModule = ({ favoritedRecipes }) => {
           title={recipe.title}
           recipeId={recipe.recipeId}
           key={recipe.recipeId}
+          inFavoritesMenu
+          removeFromFavorites={removeFromFavorites}
         />
       );
     });
@@ -30,7 +46,7 @@ const WrappedFavoritesModule = ({ favoritedRecipes }) => {
       </Module.Container>
       <Module.Container>
         {favoritedRecipes && favoritedRecipes.length > 0 && (
-          <div className='flex p-6 bg-gray-200 rounded overflow-x-auto'>
+          <div className='flex p-6 bg-gray-100 h-80 rounded overflow-x-auto'>
             {favoritedRecipesList}
           </div>
         )}

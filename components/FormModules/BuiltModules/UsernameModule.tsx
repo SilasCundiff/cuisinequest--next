@@ -12,12 +12,12 @@ export const UsernameModule = ({
       <h1 className='text-5xl mb-10 text-green-500 font-bold'>
         Welcome! Before you dig in, please choose a username!
       </h1>
-
       <Search
         placeholder='Pick a name for your quest!'
         value={usernameFormValue}
         onChange={onChange}
         name='username'
+        disableEnterKey
       />
       <UsernameMessage
         username={usernameFormValue}

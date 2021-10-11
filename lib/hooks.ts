@@ -8,12 +8,10 @@ export const useUserData = () : UserData => {
   const [user,loading, error] = useAuthState(auth);
   const [username, setUsername] = useState();
 
-  
   const [diet, setDiet] = useState(undefined);
   const [intolerances, setIntolerances] = useState(undefined);
   const [favoritedRecipes, setFavoritedRecipes] = useState(undefined);
   const [dislikedIngredients, setDislikedIngredients] = useState(undefined);
-
   useEffect(() => {
     let unsubscribe;
 
@@ -22,6 +20,7 @@ export const useUserData = () : UserData => {
       unsubscribe = ref.onSnapshot((doc) => {
         setUsername(doc.data()?.username);
       });
+     
     } else {
       setUsername(null);
     }
@@ -34,26 +33,19 @@ export const useUserData = () : UserData => {
 
     if (username) {
       const userNamesRef = firestore.collection('usernames').doc(username);
-      unsubscribe = userNamesRef.onSnapshot((doc) => {
-        const {diet, favoritedRecipes, dislikedIngredients, intolerances} =  doc.data()
-
+      unsubscribe = userNamesRef.onSnapshot(async (doc) => {
+        const {diet, favoritedRecipes, dislikedIngredients, intolerances} = doc.data()
+        console.log(`favoritedRecipes in hooks`, favoritedRecipes)
         setFavoritedRecipes(favoritedRecipes);
         setDislikedIngredients(dislikedIngredients);
         setDiet(diet);
         setIntolerances(intolerances);
-        // setFavoritedRecipes(doc.data()?.favoritedRecipes);
-        // setDislikedIngredients(doc.data()?.dislikedIngredients);
-        // setDiet(doc.data()?.diet);
-        // setIntolerances(doc.data()?.intolerances);
       });
-    } else {
-      setFavoritedRecipes(undefined);
-      setDislikedIngredients(undefined);
-      setDiet(undefined);
-      setIntolerances(undefined);
-    }
+    } 
+   
     return unsubscribe;
   }, [username]);
+
 
 
   return {

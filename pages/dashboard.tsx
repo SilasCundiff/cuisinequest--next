@@ -1,14 +1,27 @@
-//! Example recipe image url
-// https://spoonacular.com/recipeImages/{recipeID}-312x231.jpg
-
-import { Container } from '@/components/FormModules/ModuleComponents';
-import UserDataForm from '@/components/UserDataForm';
+import { useEffect } from 'react';
+import Container from '@/components/Containers/Container';
+import DashboardForm from '@/components/DashboardForm';
 import { useUserContext } from '@/contexts/UserContext';
+import FavoritesForm from '@/components/FavoritesForm';
+import Router from 'next/router';
+
 const Dashboard = () => {
-  const { user } = useUserContext();
+  const { user, username } = useUserContext();
+
+  useEffect(() => {
+    if (user && !username) Router.push('/login');
+  }, [user, username]);
+
   return (
     <Container>
-      {user ? <UserDataForm /> : <div>please login to view page</div>}
+      {user && username ? (
+        <>
+          <FavoritesForm />
+          <DashboardForm />
+        </>
+      ) : (
+        <div>please login</div>
+      )}
     </Container>
   );
 };

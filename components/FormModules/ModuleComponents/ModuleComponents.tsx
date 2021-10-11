@@ -24,13 +24,13 @@ export interface ContainerProps {
  *  A short h2 component to label the module
  */
 const WrappedHeading = ({ children }: HeadingProps) => (
-  <h2 className='text-green-500 text-5xl font-bold mb-5'>{children}</h2>
+  <h2 className='text-green-500 text-4xl font-bold mb-5'>{children}</h2>
 );
 /**
  * A paragraph component to describe the module
  */
 const WrappedParagraph = ({ children }: ParagraphProps) => (
-  <p className='text-gray-500 text-lg font-bold'>{children}</p>
+  <p className='text-gray-800 text-lg font-light'>{children}</p>
 );
 /**
  *  A container for the heading + paragraph, or the functional component of the module

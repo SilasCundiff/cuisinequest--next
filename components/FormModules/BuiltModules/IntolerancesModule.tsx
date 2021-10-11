@@ -39,7 +39,7 @@ const WrappedIntolerancesModule = (props) => {
           <label
             className={`${
               intolerance.avoid ? 'text-red-500' : 'text-green-500'
-            } text-3xl font-bold ml-12 mr-auto`}
+            } text-3xl font-bold ml-12 mr-auto cursor-pointer`}
           >
             <Checkbox
               className='mr-1'
