@@ -13,7 +13,7 @@ const Dashboard = () => {
   }, [user, username]);
 
   return (
-    <Container>
+    <Container className='mt-80'>
       {user && username ? (
         <>
           <FavoritesForm />
