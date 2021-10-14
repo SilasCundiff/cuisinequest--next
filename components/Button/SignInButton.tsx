@@ -1,6 +1,6 @@
 import Container from '@/components/Containers/Container';
 import { signInWithGoogle } from '@/lib/hooks';
-
+import Image from 'next/image';
 export const SignInButton = () => {
   return (
     <Container className='p-4 '>
@@ -15,7 +15,15 @@ export const SignInButton = () => {
           className='font-semibold px-4 py-3 rounded text-md bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center text-2xl my-6 '
           onClick={signInWithGoogle}
         >
-          <img src='google.png' className='w-10 mr-4' alt="google's logo" />
+          <span className='mr-2 flex justify-center items-center'>
+            <Image
+              layout='fixed'
+              width='28'
+              height='28'
+              src='/google.png'
+              alt="google's logo"
+            />
+          </span>
           Sign in with Google
         </button>
       </div>

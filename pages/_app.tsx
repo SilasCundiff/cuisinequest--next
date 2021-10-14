@@ -7,6 +7,7 @@ import { dummyData } from '../testData/exampleSearchResponse';
 import { useUserData } from '../lib/hooks';
 import Nav from '@/components/Nav';
 import GlobalStyle from '../styles/GlobalStyle';
+import Footer from '@/components/Footer';
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
 
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }) {
             <GlobalStyle />
             <Nav />
             <Component {...pageProps} />
+            <Footer />
           </RecipeListProvider>
         </SearchProvider>
       </UserProvider>

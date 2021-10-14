@@ -1,23 +1,40 @@
 import { auth } from '../lib/firebase';
 import { useUserContext } from '@/contexts/UserContext';
 import Link from 'next/link';
+import Logo from '@/components/Logo/Logo';
+
 import { useRouter } from 'next/dist/client/router';
+import { Search } from './Search/Search';
 const Nav = () => {
   const { user } = useUserContext();
   const router = useRouter();
   const signOut = () => auth.signOut();
 
   return (
-    <nav className='flex w-full h-32 pb-8 pt-4 px-6'>
-      <div className='logo text-5xl text-green-500 font-black my-auto'>
-        <Link href='/'>CuisineQuest</Link>
+    <nav className='fixed inset-0 flex h-32 pt-4 px-6 z-50'>
+      <div className='max-w-1/6 min-w-1/6'>
+        <Link passHref href='/'>
+          <a>
+            <Logo className='' />
+          </a>
+        </Link>
       </div>
-      <div className='searchBarPlaceholder w-1/3 h-10 bg-gray-300 rounded-lg ml-auto mr-auto my-auto'></div>
-      <div className='buttonContainer ml-auto my-auto'>
+
+      <div className='mx-auto mt-auto min-w-1/2'>
+        <Search
+          className='bg-white text-center'
+          placeholder='Discover your perfect meal...'
+          name='recipeSearch'
+          value=''
+          onChange={() => console.log('search!')}
+          disableEnterKey
+        />
+      </div>
+      <div className='buttonContainer ml-auto mt-auto mb-6'>
         {user ? (
           <>
             <LinkButton
-              className='text-green-500'
+              className='text-green-400 hover:text-green-500'
               path='/dashboard'
               onClick={signOut}
               type='button'
@@ -25,7 +42,9 @@ const Nav = () => {
               Logout
             </LinkButton>
             <LinkButton
-              className='text-gray-900 hover:text-green-500'
+              className={` hover:text-green-500 ${
+                router.pathname === '/' ? 'text-gray-50' : 'text-gray-700'
+              }`}
               path='/dashboard'
               type='link'
             >
@@ -35,7 +54,11 @@ const Nav = () => {
         ) : (
           <>
             {router.pathname !== '/login' && (
-              <LinkButton className='text-green-500' path='/login' type='link'>
+              <LinkButton
+                className='text-green-400 hover:text-green-500'
+                path='/login'
+                type='link'
+              >
                 Login
               </LinkButton>
             )}
