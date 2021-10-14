@@ -1,7 +1,9 @@
-export const DietSelect = ({ diet, handleChange }) => {
+export const DietSelect = ({ diet, handleChange, className = '' }) => {
   return (
     <select
-      className='text-gray-600 text-4xl'
+      className={`text-gray-400 ${
+        className ? className : 'text-3xl'
+      }  w-full bg-gray-50 border-gray-400 tracking-wider font-medium text-gray-400 rounded-md px-3 py-1 border flex flex-col text-center cursor-pointer`}
       value={diet}
       onChange={(e) => handleChange(e)}
     >

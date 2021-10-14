@@ -33,4 +33,8 @@ export interface UserData {
   intolerances?: Array<IntoleranceTypes> | undefined;
   dislikedIngredients?: Array<DislikedIngredientsTypes> | undefined;
   diet?: string | undefined;
+  setDiet?: (diet: string) => void;
+  setIntolerances?: (intolerances: Array<IntoleranceTypes>) => void;
+
+
 }

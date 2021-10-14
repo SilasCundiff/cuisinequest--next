@@ -55,6 +55,8 @@ export const useUserData = () : UserData => {
     intolerances,
     dislikedIngredients,
     diet,
+    setDiet,
+    setIntolerances
   };
 };
 

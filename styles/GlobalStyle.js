@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+html {
+  scroll-behavior: smooth;
+}
  &::-webkit-scrollbar {
     width: .5em;
     height:  .5em;

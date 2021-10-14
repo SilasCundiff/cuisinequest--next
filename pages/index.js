@@ -1,6 +1,7 @@
 import { useUserContext } from '@/contexts/UserContext';
 import Image from 'next/image';
 import Logo from '@/components/Logo/Logo';
+import Link from 'next/link';
 export default function Home() {
   const { user, username } = useUserContext();
 
@@ -19,7 +20,9 @@ export default function Home() {
             </div>
             <div className='flex mt-4'>
               <button className='rounded font-medium ml-auto mr-4 transition-colors px-4 py-2 text-xl bg-green-500 hover:bg-green-600 text-gray-50'>
-                Begin Your Quest
+                <Link passHref href='/login'>
+                  Begin Your Quest
+                </Link>
               </button>
               <button className='rounded font-medium mr-auto ml-4 text-gray-50 border-gray-50 hover:border-green-500 hover:text-green-500 border-4 transition-colors px-4 py-2 text-xl '>
                 <a href='#info'>Learn More</a>
@@ -96,7 +99,9 @@ export default function Home() {
                   It&apos;s 100% free! What are you waiting for?
                 </span>
                 <button className='rounded font-medium mr-auto mt-6 px-4 py-2 text-2xl text-green-500 bg-gray-50 hover:bg-green-100 transition-colors'>
-                  Begin Your Quest
+                  <Link passHref href='/login'>
+                    Begin Your Quest
+                  </Link>
                 </button>
               </div>
             </div>

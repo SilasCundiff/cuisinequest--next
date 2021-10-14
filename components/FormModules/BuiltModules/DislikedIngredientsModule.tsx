@@ -121,7 +121,8 @@ const WrappedDislikedIngredientsModule = ({
             value={ingredientSearchTerm}
             onChange={onChange}
             placeholder='Banish the Brussels Sprouts!'
-            disableEnterKey={true}
+            disableEnterKey
+            disableSearchButton
           />
           <ListBox
             heading='Search results'

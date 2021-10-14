@@ -4,7 +4,8 @@ import Link from 'next/link';
 import Logo from '@/components/Logo/Logo';
 
 import { useRouter } from 'next/dist/client/router';
-import { Search } from './Search/Search';
+import RecipeNavSearch from './RecipeSearchForm';
+
 const Nav = () => {
   const { user } = useUserContext();
   const router = useRouter();
@@ -21,14 +22,7 @@ const Nav = () => {
       </div>
 
       <div className='mx-auto mt-auto min-w-1/2'>
-        <Search
-          className='bg-white text-center'
-          placeholder='Discover your perfect meal...'
-          name='recipeSearch'
-          value=''
-          onChange={() => console.log('search!')}
-          disableEnterKey
-        />
+        <RecipeNavSearch />
       </div>
       <div className='buttonContainer ml-auto mt-auto mb-6'>
         {user ? (

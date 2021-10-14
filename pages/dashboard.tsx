@@ -10,6 +10,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (user && !username) Router.push('/login');
+    if (!user && !username) Router.push('/');
   }, [user, username]);
 
   return (
