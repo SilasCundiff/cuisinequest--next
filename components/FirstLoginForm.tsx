@@ -3,24 +3,15 @@ import debounce from 'lodash.debounce';
 import { firestore } from '../lib/firebase';
 import { useUserContext } from '@/contexts/UserContext';
 import { Toaster } from 'react-hot-toast';
-import Module from '@/components/FormModules/Module';
-import {
-  IntolerancesModule,
-  DietTypeModule,
-  DislikedIngredientsModule,
-} from '@/components/FormModules/BuiltModules';
+
+import { IntoleranceModule, DietTypeModule, DislikedIngredientsModule } from '@/components/FormModules/BuiltModules';
 import { UsernameModule } from './FormModules/BuiltModules/UsernameModule';
 import { placeholderFavorites } from '../testData/placeholderFavorites';
-import { initialIntolerances } from '@/lib/initializerData';
+import { initialIntolerance } from '@/lib/initializerData';
 import { successfulSave } from './Toaster/ToasterConfig';
 
 const FirstLoginForm = () => {
-  const {
-    diet = 'unselected',
-    intolerances = initialIntolerances,
-    dislikedIngredients = [],
-    user,
-  } = useUserContext();
+  const { diet = 'unselected', intolerance = initialIntolerance, dislikedIngredients = [], user } = useUserContext();
 
   // Username Form state
   const [usernameFormValue, setUsernameFormValue] = useState('');
@@ -30,15 +21,14 @@ const FirstLoginForm = () => {
   const [loading, setLoading] = useState(false);
 
   // User Preferences state
-  const [userIntolerances, setUserIntolerances] = useState(intolerances);
+  const [userIntolerance, setUserIntolerance] = useState(intolerance);
   const [userDisliked, setUserDisliked] = useState(dislikedIngredients);
   const [userDiet, setUserDiet] = useState(diet);
 
   const onChange = (e) => {
     const value = e.target.value;
     const regex = /^(?=[a-zA-Z0-9._]{3,15}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
-    if (isFirstTimePast3Chars && value.length >= 3)
-      setIsFirstTimePast3Chars(false);
+    if (isFirstTimePast3Chars && value.length >= 3) setIsFirstTimePast3Chars(false);
     if (value.length < 3) {
       setUsernameFormValue(value);
       setLoading(false);
@@ -81,10 +71,10 @@ const FirstLoginForm = () => {
 
     batch.set(usernameDoc, {
       uid: user.uid,
-      intolerances: userIntolerances,
+      intolerance: userIntolerance,
       diet: userDiet,
       dislikedIngredients: userDisliked,
-      favoritedRecipes: placeholderFavorites,
+      favoriteRecipes: placeholderFavorites,
     });
 
     await batch.commit();
@@ -120,31 +110,18 @@ const FirstLoginForm = () => {
               isLongEnough={isLongEnough}
             />
             <div>
-              <h2 className='text-green-500 text-5xl font-light mb-4'>
-                Set your preferences below.
-              </h2>
-              <p className='text-gray-400 text-3xl font-thin mb-2'>
-                Eager to start your journey?
-              </p>
+              <h2 className='text-green-500 text-5xl font-light mb-4'>Set your preferences below.</h2>
+              <p className='text-gray-400 text-3xl font-thin mb-2'>Eager to start your journey?</p>
               <p className='text-gray-400 text-3xl font-thin mb-32'>
-                No worries, you can skip this next part and change your
-                preferences later in the dashboard.
+                No worries, you can skip this next part and change your preferences later in the dashboard.
               </p>
             </div>
-            <IntolerancesModule
-              userIntolerances={userIntolerances}
-              setUserIntolerances={setUserIntolerances}
-            />
-            <DislikedIngredientsModule
-              dislikedIngredients={userDisliked}
-              setUserDisliked={setUserDisliked}
-            />
+            <IntoleranceModule userIntolerance={userIntolerance} setUserIntolerance={setUserIntolerance} />
+            <DislikedIngredientsModule dislikedIngredients={userDisliked} setUserDisliked={setUserDisliked} />
             <DietTypeModule diet={userDiet} setUserDiet={setUserDiet} />
             <button
               className={`${
-                isValid
-                  ? 'bg-green-500 hover:shadow-lg transition-all'
-                  : 'bg-red-300'
+                isValid ? 'bg-green-500 hover:shadow-lg transition-all' : 'bg-red-300'
               } text-gray-50 text-4xl rounded p-4 max-w-md`}
               type='submit'
               disabled={!isValid}

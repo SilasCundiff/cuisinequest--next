@@ -6,14 +6,14 @@ import { FavoritesModule } from '@/components/FormModules/BuiltModules';
 import { successfulSave } from './Toaster/ToasterConfig';
 import { placeholderFavorites } from 'testData/placeholderFavorites';
 const UserDataForm = () => {
-  const { favoritedRecipes, user, username } = useUserContext();
+  const { favoriteRecipes, user, username } = useUserContext();
 
-  const [userFavorited, setUserFavorited] = useState(favoritedRecipes);
-  console.log(`username`, username, favoritedRecipes, userFavorited);
+  const [userFavorites, setUserFavorites] = useState(favoriteRecipes);
+  // console.log(`username`, username, favoriteRecipes, userFavorites);
   const AddDummyFavorites = async () => {
     const usernameDoc = firestore.doc(`usernames/${username}`);
     try {
-      await usernameDoc.update('favoritedRecipes', placeholderFavorites);
+      await usernameDoc.update('favoriteRecipes', placeholderFavorites);
     } catch (e) {
       console.log(`e`, e);
     }
@@ -21,7 +21,7 @@ const UserDataForm = () => {
   const RemoveFavorite = async (newFavorites) => {
     const usernameDoc = firestore.doc(`usernames/${username}`);
     try {
-      await usernameDoc.update('favoritedRecipes', newFavorites);
+      await usernameDoc.update('favoriteRecipes', newFavorites);
     } catch (e) {
       console.log(`e`, e);
     }
@@ -29,22 +29,20 @@ const UserDataForm = () => {
   };
 
   useEffect(() => {
-    setUserFavorited(favoritedRecipes);
-  }, [username, favoritedRecipes]);
+    setUserFavorites(favoriteRecipes);
+  }, [username, favoriteRecipes]);
 
   return (
     <>
       <Toaster position='bottom-center' />
       {user && (
         <FavoritesModule
-          favoritedRecipes={userFavorited}
-          setUserFavorited={setUserFavorited}
+          favoriteRecipes={userFavorites}
+          setUserFavorites={setUserFavorites}
           RemoveFavorite={RemoveFavorite}
         />
       )}
-      <button onClick={AddDummyFavorites}>
-        Refill Favorites for debugging
-      </button>
+      <button onClick={AddDummyFavorites}>Refill Favorites for debugging</button>
     </>
   );
 };

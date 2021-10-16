@@ -2,21 +2,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
 
+interface SearchProps {
+  placeholder: string;
+  name: string;
+  value: string;
+  onChange?: (any) => void;
+  disableEnterKey?: boolean;
+  disableSearchButton?: boolean;
+  className?: string;
+}
+
 const Search = ({
   placeholder,
   name,
   value,
   onChange,
   disableEnterKey = false,
+  disableSearchButton = false,
   className = '',
-}) => {
+}: SearchProps) => {
   const preventEnter = (e) => {
     disableEnterKey && e.key === 'Enter' && e.preventDefault();
   };
 
   return (
     <div
-      className={`min-w-full mb-5 text-center border-gray-400 border-2 rounded-2xl focus-within:border-green-500 ${className}`}
+      className={`${className} min-w-full mb-5 text-center border-gray-400 border rounded-2xl focus-within:border-green-500`}
       style={{ minWidth: '100%', width: '100%' }}
     >
       <div className='w-full focus-within:text-green-500 text-gray-700 text-2xl font-light tracking-widest px-2 py-1 rounded relative'>

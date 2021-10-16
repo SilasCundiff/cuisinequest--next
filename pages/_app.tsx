@@ -11,17 +11,41 @@ import Footer from '@/components/Footer';
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
 
-  const [currentSearch, setCurrentSearch] = useState({ query: 'Salad' });
-  const [recipeList, setRecipeList] = useState(dummyData.results);
+  const [currentSearch, setCurrentSearch] = useState();
+  const [previousSearch, setPreviousSearch] = useState();
+  const [currentRecipeList, setCurrentRecipeList] = useState();
+  const [previousRecipeList, setPreviousRecipeList] = useState();
+  const [loadingRecipes, setLoadingRecipes] = useState(false);
+  const [term, setTerm] = useState();
 
   return (
     <>
       <UserProvider value={{ ...userData }}>
-        <SearchProvider value={{ search: currentSearch }}>
-          <RecipeListProvider value={{ recipeList: recipeList }}>
+        <SearchProvider
+          value={{
+            currentSearch,
+            setCurrentSearch,
+            previousSearch,
+            setPreviousSearch,
+            term,
+            setTerm,
+          }}
+        >
+          <RecipeListProvider
+            value={{
+              currentRecipeList,
+              setCurrentRecipeList,
+              previousRecipeList,
+              setPreviousRecipeList,
+              loadingRecipes,
+              setLoadingRecipes,
+            }}
+          >
             <GlobalStyle />
             <Nav />
-            <Component {...pageProps} />
+            <div className='min-h-screen min-w-screen'>
+              <Component {...pageProps} />
+            </div>
             <Footer />
           </RecipeListProvider>
         </SearchProvider>

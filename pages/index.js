@@ -1,6 +1,7 @@
 import { useUserContext } from '@/contexts/UserContext';
 import Image from 'next/image';
 import Logo from '@/components/Logo/Logo';
+import Link from 'next/link';
 export default function Home() {
   const { user, username } = useUserContext();
 
@@ -14,12 +15,14 @@ export default function Home() {
                 <Logo />
               </div>
               <span className='font-thin pt-1 ml-auto -mr-3  text-right pb-6  text-gray-50 text-2xl tracking-widest'>
-                explore your tastebuds
+                explore your taste buds
               </span>
             </div>
             <div className='flex mt-4'>
               <button className='rounded font-medium ml-auto mr-4 transition-colors px-4 py-2 text-xl bg-green-500 hover:bg-green-600 text-gray-50'>
-                Begin Your Quest
+                <Link passHref href='/login'>
+                  Begin Your Quest
+                </Link>
               </button>
               <button className='rounded font-medium mr-auto ml-4 text-gray-50 border-gray-50 hover:border-green-500 hover:text-green-500 border-4 transition-colors px-4 py-2 text-xl '>
                 <a href='#info'>Learn More</a>
@@ -40,17 +43,14 @@ export default function Home() {
             </h2>
             <div className='text-2xl relative z-10 flex flex-col justify-evenly max-w-1/2 '>
               <p className='mb-8'>
-                Whether it’s discovering new dishes, <br /> or feeling comfort
-                with your long-lost favorites,
+                Whether it’s discovering new dishes, <br /> or feeling comfort with your long-lost favorites,
               </p>
               <p className='mb-8'>we’ve got you covered!</p>
               <p className='mb-8'>
-                Let us help you hunt down those recipes <br /> that are off the
-                map!
+                Let us help you hunt down those recipes <br /> that are off the map!
               </p>
               <p className='mb-8'>
-                Begin your quest by searching for a recipe <br /> in the search
-                bar above!
+                Begin your quest by searching for a recipe <br /> in the search bar above!
               </p>
             </div>
           </div>
@@ -81,9 +81,7 @@ export default function Home() {
             </div>
             <div className='text-2xl relative z-10 flex flex-col justify-evenly mx-auto min-w-3/4 '>
               <div className='mx-auto '>
-                <h3 className='text-4xl font-bold mb-6'>
-                  Logging in lets you:
-                </h3>
+                <h3 className='text-4xl font-bold mb-6'>Logging in lets you:</h3>
                 <ul className='list-disc font-light pl-6 text-xl'>
                   <li className='mb-4'>Save your favorite recipes</li>
                   <li className='mb-4'>Search by Diet Type</li>
@@ -92,11 +90,11 @@ export default function Home() {
                 </ul>
               </div>
               <div className='flex flex-col mx-auto mt-12'>
-                <span className='text-base mr-auto'>
-                  It&apos;s 100% free! What are you waiting for?
-                </span>
+                <span className='text-base mr-auto'>It&apos;s 100% free! What are you waiting for?</span>
                 <button className='rounded font-medium mr-auto mt-6 px-4 py-2 text-2xl text-green-500 bg-gray-50 hover:bg-green-100 transition-colors'>
-                  Begin Your Quest
+                  <Link passHref href='/login'>
+                    Begin Your Quest
+                  </Link>
                 </button>
               </div>
             </div>

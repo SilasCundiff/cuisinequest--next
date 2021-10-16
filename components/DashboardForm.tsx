@@ -4,17 +4,13 @@ import { Toaster } from 'react-hot-toast';
 import { firestore } from '../lib/firebase';
 import { useUserContext } from '@/contexts/UserContext';
 import { successfulSave } from '@/components/Toaster/ToasterConfig';
-import {
-  IntolerancesModule,
-  DietTypeModule,
-  DislikedIngredientsModule,
-} from '@/components/FormModules/BuiltModules';
-import { initialIntolerances } from '@/lib/initializerData';
+import { IntoleranceModule, DietTypeModule, DislikedIngredientsModule } from '@/components/FormModules/BuiltModules';
+import { initialIntolerance } from '@/lib/initializerData';
 
 const UserDataForm = () => {
   const {
     diet = 'unselected',
-    intolerances = initialIntolerances,
+    intolerance = initialIntolerance,
     dislikedIngredients = [],
     user,
     username,
@@ -22,7 +18,7 @@ const UserDataForm = () => {
 
   const router = useRouter();
 
-  const [userIntolerances, setUserIntolerances] = useState(intolerances);
+  const [userIntolerance, setUserIntolerance] = useState(intolerance);
   const [userDisliked, setUserDisliked] = useState(dislikedIngredients);
   const [userDiet, setUserDiet] = useState(diet);
 
@@ -32,7 +28,7 @@ const UserDataForm = () => {
     const batch = firestore.batch();
 
     batch.update(usernameDoc, {
-      intolerances: userIntolerances,
+      intolerance: userIntolerance,
       diet: userDiet,
       dislikedIngredients: userDisliked,
     });
@@ -56,14 +52,8 @@ const UserDataForm = () => {
             handleSubmit(e);
           }}
         >
-          <IntolerancesModule
-            userIntolerances={userIntolerances}
-            setUserIntolerances={setUserIntolerances}
-          />
-          <DislikedIngredientsModule
-            dislikedIngredients={userDisliked}
-            setUserDisliked={setUserDisliked}
-          />
+          <IntoleranceModule userIntolerance={userIntolerance} setUserIntolerance={setUserIntolerance} />
+          <DislikedIngredientsModule dislikedIngredients={userDisliked} setUserDisliked={setUserDisliked} />
           <DietTypeModule diet={userDiet} setUserDiet={setUserDiet} />
           <button
             className={`

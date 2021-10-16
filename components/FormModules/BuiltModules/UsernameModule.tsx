@@ -18,6 +18,7 @@ export const UsernameModule = ({
         onChange={onChange}
         name='username'
         disableEnterKey
+        disableSearchButton
       />
       <UsernameMessage
         username={usernameFormValue}

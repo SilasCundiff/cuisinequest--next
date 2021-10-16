@@ -1,6 +1,12 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+html {
+  scroll-behavior: smooth;
+  background-color: rgb(249, 250, 251)
+}
+
+
  &::-webkit-scrollbar {
     width: .5em;
     height:  .5em;
@@ -20,6 +26,8 @@ const GlobalStyle = createGlobalStyle`
     scrollbar-color: rgba(52, 211, 153) rgba(156, 163, 175);
     scrollbar-width: thin;
   }
+
+
 }
 `;
 

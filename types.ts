@@ -1,6 +1,6 @@
 
 
-export type FavoritedRecipesType = {
+export type FavoriteRecipeType = {
     recipeId: number;
     title: string;
   }
@@ -29,8 +29,12 @@ export interface UserData {
     displayName: string,
   };
   username?: string;
-  favoritedRecipes?: Array<FavoritedRecipesType> | undefined;
-  intolerances?: Array<IntoleranceTypes> | undefined;
+  favoriteRecipes?: Array<FavoriteRecipeType> | undefined;
+  intolerance?: Array<IntoleranceTypes> | undefined;
   dislikedIngredients?: Array<DislikedIngredientsTypes> | undefined;
   diet?: string | undefined;
+  setDiet?: (diet: string) => void;
+  setIntolerance?: (intolerance: Array<IntoleranceTypes>) => void;
+
+
 }

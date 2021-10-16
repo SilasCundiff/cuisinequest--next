@@ -3,25 +3,37 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     letterSpacing: {
+      wider: '.25em',
       widest: '.5em',
     },
     fontFamily: {
       sora: ['Sora', 'sans-serif'],
     },
     width: { '2/7': '28.5714286%' },
-    minHeight: { 80: '80%', 810: '810px' },
-    maxHeight: { 80: '80%', 810: '810px' },
+    minHeight: {
+      80: '80%',
+      810: '810px',
+      24: '24px',
+      160: '160px',
+      200: '200px',
+      screen: '99.9vh',
+    },
+    maxHeight: { 80: '80%', 810: '810px', 24: '24px', 240: 'min-content' },
     minWidth: {
       0: '0',
+      24: '24px',
       '1/6': '16.666666%',
       '1/4': '25%',
       '1/2': '50%',
       66: '66%',
+      185: '185px',
       '3/4': '75%',
       full: '100%',
+      screen: '95vw',
     },
     maxWidth: {
       0: '0',
+      24: '24px',
       '1/6': '16.666666%',
       '1/4': '25%',
       '1/2': '50%',
@@ -32,8 +44,7 @@ module.exports = {
 
     extend: {
       backgroundImage: {
-        'hero-image':
-          "url('/jonathan-pielmayer-Gn64mz9hTqE-unsplash - large.jpg')",
+        'hero-image': "url('/jonathan-pielmayer-Gn64mz9hTqE-unsplash - large.jpg')",
       },
       outline: {
         green: '3px solid rgb(16, 185, 129)',
