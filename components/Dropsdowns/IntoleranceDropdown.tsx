@@ -2,14 +2,14 @@ import { useState, useMemo } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
 import styled from 'styled-components';
+
 const IntoleranceDropdown = ({ dropdownListItems, setListItemState }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  console.log(`dropdownListItems`, dropdownListItems);
 
   const dropDownList = useMemo(() => {
     return (
       dropdownListItems &&
-      dropdownListItems.map((listItem, index) => {
+      dropdownListItems.map((listItem: { avoid: boolean; name: string }, index: number) => {
         return (
           <div
             className={`ml-1 mr-3 my-2 h-6 flex items-center rounded ${
@@ -35,7 +35,7 @@ const IntoleranceDropdown = ({ dropdownListItems, setListItemState }) => {
         );
       })
     );
-  }, [dropdownListItems]);
+  }, [dropdownListItems, setListItemState]);
 
   return (
     <div
@@ -44,13 +44,9 @@ const IntoleranceDropdown = ({ dropdownListItems, setListItemState }) => {
         dropdownOpen ? 'min-h-200' : 'h-auto'
       }`}
     >
-      <div className='mx-auto'>Intolerances</div>
+      <div className='mx-auto'>Intolerance</div>
       <div
-        className={`max-w-full ${
-          dropdownOpen
-            ? 'min-h-160 overflow-y-scroll bg-gray-50'
-            : 'min-h-0 overflow-hidden'
-        }`}
+        className={`max-w-full ${dropdownOpen ? 'min-h-160 overflow-y-scroll bg-gray-50' : 'min-h-0 overflow-hidden'}`}
       >
         {dropDownList}
       </div>

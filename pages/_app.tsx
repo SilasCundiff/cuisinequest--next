@@ -15,6 +15,8 @@ function MyApp({ Component, pageProps }) {
   const [previousSearch, setPreviousSearch] = useState();
   const [currentRecipeList, setCurrentRecipeList] = useState();
   const [previousRecipeList, setPreviousRecipeList] = useState();
+  const [loadingRecipes, setLoadingRecipes] = useState(false);
+  const [term, setTerm] = useState();
 
   return (
     <>
@@ -25,6 +27,8 @@ function MyApp({ Component, pageProps }) {
             setCurrentSearch,
             previousSearch,
             setPreviousSearch,
+            term,
+            setTerm,
           }}
         >
           <RecipeListProvider
@@ -33,11 +37,15 @@ function MyApp({ Component, pageProps }) {
               setCurrentRecipeList,
               previousRecipeList,
               setPreviousRecipeList,
+              loadingRecipes,
+              setLoadingRecipes,
             }}
           >
             <GlobalStyle />
             <Nav />
-            <Component {...pageProps} />
+            <div className='min-h-screen min-w-screen'>
+              <Component {...pageProps} />
+            </div>
             <Footer />
           </RecipeListProvider>
         </SearchProvider>

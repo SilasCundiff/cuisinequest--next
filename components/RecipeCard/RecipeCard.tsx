@@ -4,7 +4,8 @@ interface RecipeCardProps {
   title: string;
   recipeId: number;
   inFavoritesMenu?: boolean;
-  removeFromFavorites: (recipeId) => void;
+  removeFromFavorites?: (recipeId) => void;
+  className: string;
 }
 
 const apiKey = process.env.NEXT_PUBLIC_RECIPES_API_KEY;
@@ -14,6 +15,7 @@ const RecipeCard = ({
   recipeId,
   inFavoritesMenu = false,
   removeFromFavorites,
+  className = '',
 }: RecipeCardProps) => {
   const truncatedTitle = truncate(title, 20);
 
@@ -25,7 +27,7 @@ const RecipeCard = ({
   return (
     <div
       className='w-64 h-60 mr-12 rounded bg-white relative group'
-      style={{ minWidth: '250px' }}
+      style={{ minWidth: '300px', maxWidth: '300px', minHeight: '260px' }}
     >
       <div className='flex flex-col h-full w-full'>
         {/* eslint-disable-next-line @next/next/no-img-element */}

@@ -7,23 +7,33 @@ import { DietSelect } from './Select/DietSelect';
 import axios from 'axios';
 import { Checkbox } from './FormComponents/Checkbox';
 import IntoleranceDropdown from './Dropsdowns/IntoleranceDropdown';
-const RecipeNavSearch = () => {
-  const { user, username, diet, setDiet, intolerances, setIntolerances } =
-    useUserContext();
-  const { currentSearch, setCurrentSearch, previousSearch, setPreviousSearch } =
-    useSearchContext();
+import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
 
+const queryStringBuilder: (currentQuery: string, paramKey: string, paramValues: string) => string = (
+  qry,
+  param,
+  values
+) => {
+  let queryString: string = `${qry + '&' + param}=${values}`;
+
+  return queryString;
+};
+
+const RecipeNavSearch = () => {
+  const { user, username, diet, setDiet, intolerance, setIntolerance, dislikedIngredients } = useUserContext();
+  const { setTerm, currentSearch, setCurrentSearch, previousSearch, setPreviousSearch } = useSearchContext();
   const {
+    loadingRecipes,
+    setLoadingRecipes,
     setCurrentRecipeList,
     currentRecipeList,
     setPreviousRecipeList,
     previousRecipeList,
   } = useRecipeListContext();
-
   const [search, setSearch] = useState('');
   const [filterByDiet, setFilterByDiet] = useState(false);
-  const [filterByIntolerance, setFilterByIntolerance] = useState(true);
-  const [filterByDisliked, setFilterByDisliked] = useState(true);
+  const [filterByIntolerance, setFilterByIntolerance] = useState(false);
+  const [filterByDisliked, setFilterByDisliked] = useState(false);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
@@ -35,40 +45,73 @@ const RecipeNavSearch = () => {
   const handleCheckToggle = (val, setFunc) => {
     setFunc(!val);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
 
-    if (search === previousSearch) {
-      setCurrentSearch(previousSearch);
-      setCurrentRecipeList(previousRecipeList);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (search === '') {
       return;
     }
-
-    setPreviousSearch(currentSearch);
-    setCurrentSearch(search);
+    setLoadingRecipes(true);
+    let query = `&query=${search}`;
 
     if (user && username) {
-      // build query string
+      if (diet !== 'unselected' && filterByDiet) {
+        query = queryStringBuilder(query, 'diet', diet);
+      }
+
+      if (filterByIntolerance) {
+        const IntoleranceToFilter = [];
+        for (const singleIntolerance in intolerance) {
+          if (Object.prototype.hasOwnProperty.call(intolerance, singleIntolerance)) {
+            const element = intolerance[singleIntolerance];
+            if (element.avoid) IntoleranceToFilter.push(StringCapitalizer(element.name));
+          }
+        }
+        query = queryStringBuilder(query, 'intolerances', IntoleranceToFilter.toString());
+      }
+      if (filterByDisliked) {
+        const IngredientsToFilter = [];
+        for (const singleIngredient in dislikedIngredients) {
+          if (Object.prototype.hasOwnProperty.call(dislikedIngredients, singleIngredient)) {
+            const element = dislikedIngredients[singleIngredient];
+            IngredientsToFilter.push(StringCapitalizer(element.name));
+          }
+        }
+        query = queryStringBuilder(query, 'excludeIngredients', IngredientsToFilter.toString());
+      }
     }
 
-    // axios
-    //   .get(
-    //     `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${process.env.NEXT_PUBLIC_RECIPES_API_KEY}&query=${currentSearch}`
-    //   )
-    //   .then((res) => {
-    //     const searchRes = res.data;
-    //     setPreviousRecipeList(currentRecipeList);
-    //     setCurrentRecipeList(searchRes);
-    //   });
+    setCurrentSearch(query);
+
+    if (query === previousSearch) {
+      setCurrentRecipeList(previousRecipeList);
+      setLoadingRecipes(false);
+      return;
+    }
+    setPreviousSearch(currentSearch);
+
+    axios
+      .get(
+        `https://api.spoonacular.com/recipes/complexSearch/?apiKey=${process.env.NEXT_PUBLIC_RECIPES_API_KEY}&${query}&number=12&sort=popularity&sortDirection=desc`
+      )
+      .then((res) => {
+        const searchRes = res.data;
+        if (currentRecipeList) setPreviousRecipeList(currentRecipeList);
+        setCurrentRecipeList(searchRes);
+        setTerm(StringCapitalizer(search));
+        setLoadingRecipes(false);
+      });
+    // return;
   };
+
   const setListItemState = useCallback(
     (e, index) => {
       e.stopPropagation();
-      const newIntolerances = [...intolerances];
-      newIntolerances[index].avoid = !newIntolerances[index].avoid;
-      setIntolerances(newIntolerances);
+      const newIntolerance = [...intolerance];
+      newIntolerance[index].avoid = !newIntolerance[index].avoid;
+      setIntolerance(newIntolerance);
     },
-    [intolerances, setIntolerances]
+    [intolerance, setIntolerance]
   );
 
   return (
@@ -88,44 +131,34 @@ const RecipeNavSearch = () => {
           <div className='flex min-w-1/4 '>
             <label className={`my-auto`}>
               <Checkbox
-                checked={filterByDiet}
+                checked={!filterByDiet}
                 emptyToCheck
                 inline={false}
-                onChange={(e) => {
+                onChange={() => {
                   handleCheckToggle(filterByDiet, setFilterByDiet);
                 }}
                 className='my-auto'
               />
             </label>
-            <DietSelect
-              handleChange={handleDietChange}
-              diet={diet}
-              className='text-reg my-auto'
-            />
+            <DietSelect handleChange={handleDietChange} diet={diet} className='text-reg my-auto' />
           </div>
           <div className='flex mx-auto min-w-1/4'>
             <label className={`my-auto`}>
               <Checkbox
-                checked={filterByIntolerance}
+                checked={!filterByIntolerance}
                 emptyToCheck
                 inline={false}
-                onChange={(e) => {
-                  handleCheckToggle(
-                    filterByIntolerance,
-                    setFilterByIntolerance
-                  );
+                onChange={() => {
+                  handleCheckToggle(filterByIntolerance, setFilterByIntolerance);
                 }}
               />
             </label>
-            <IntoleranceDropdown
-              dropdownListItems={intolerances}
-              setListItemState={setListItemState}
-            />
+            <IntoleranceDropdown dropdownListItems={intolerance} setListItemState={setListItemState} />
           </div>
           <div className='flex min-w-1/4'>
             <label className={`my-auto`}>
               <Checkbox
-                checked={filterByDisliked}
+                checked={!filterByDisliked}
                 emptyToCheck
                 inline={false}
                 onChange={(e) => {

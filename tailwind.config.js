@@ -16,6 +16,7 @@ module.exports = {
       24: '24px',
       160: '160px',
       200: '200px',
+      screen: '99.9vh',
     },
     maxHeight: { 80: '80%', 810: '810px', 24: '24px', 240: 'min-content' },
     minWidth: {
@@ -28,6 +29,7 @@ module.exports = {
       185: '185px',
       '3/4': '75%',
       full: '100%',
+      screen: '95vw',
     },
     maxWidth: {
       0: '0',
@@ -42,8 +44,7 @@ module.exports = {
 
     extend: {
       backgroundImage: {
-        'hero-image':
-          "url('/jonathan-pielmayer-Gn64mz9hTqE-unsplash - large.jpg')",
+        'hero-image': "url('/jonathan-pielmayer-Gn64mz9hTqE-unsplash - large.jpg')",
       },
       outline: {
         green: '3px solid rgb(16, 185, 129)',

@@ -1,4 +1,4 @@
-export const initialIntolerances = [
+export const initialIntolerance = [
   { name: 'dairy', avoid: false },
   { name: 'egg', avoid: false },
   { name: 'gluten', avoid: false },

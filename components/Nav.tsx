@@ -36,9 +36,7 @@ const Nav = () => {
               Logout
             </LinkButton>
             <LinkButton
-              className={` hover:text-green-500 ${
-                router.pathname === '/' ? 'text-gray-50' : 'text-gray-700'
-              }`}
+              className={` hover:text-green-500 ${router.pathname === '/' ? 'text-gray-50' : 'text-gray-700'}`}
               path='/dashboard'
               type='link'
             >
@@ -48,11 +46,7 @@ const Nav = () => {
         ) : (
           <>
             {router.pathname !== '/login' && (
-              <LinkButton
-                className='text-green-400 hover:text-green-500'
-                path='/login'
-                type='link'
-              >
+              <LinkButton className='text-green-400 hover:text-green-500' path='/login' type='link'>
                 Login
               </LinkButton>
             )}
@@ -63,27 +57,16 @@ const Nav = () => {
   );
 };
 
-const LinkButton = ({
-  path,
-  children,
-  className = '',
-  onClick = undefined,
-  type,
-}) => {
+const LinkButton = ({ path, children, className = '', onClick = undefined, type }) => {
   if (type === 'button')
     return (
-      <button
-        onClick={onClick}
-        className={`font-semibold px-4 py-3 rounded text-md ${className}`}
-      >
+      <button onClick={onClick} className={`font-semibold px-4 py-3 rounded text-md ${className}`}>
         {children}
       </button>
     );
   if (type === 'link')
     return (
-      <button
-        className={`font-semibold px-4 py-3 rounded text-md ${className}`}
-      >
+      <button className={`font-semibold px-4 py-3 rounded text-md ${className}`}>
         <Link href={`${path}`}>{children}</Link>
       </button>
     );
