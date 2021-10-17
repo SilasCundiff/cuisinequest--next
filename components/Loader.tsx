@@ -7,8 +7,8 @@ to {
 
 const StyledLoader = styled.div`
   display: inline-block;
-  width: 240px;
-  height: 240px;
+  width: 50px;
+  height: 50px;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-radius: 100%;
   border-top-color: rgb(16, 185, 129);

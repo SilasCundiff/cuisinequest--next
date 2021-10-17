@@ -2,18 +2,21 @@ import Module from '../Module';
 import RecipeCard from '@/components/RecipeCard/RecipeCard';
 import { FavoriteRecipeType } from '../../../types';
 import { memo } from 'react';
+import { useRemoveFavorite } from '@/lib/hooks';
 
-const WrappedFavoritesModule = ({ favoriteRecipes, setUserFavorites, RemoveFavorite }) => {
-  const removeFromFavorites = (id: number) => {
-    if (favoriteRecipes && favoriteRecipes.length > 0) {
-      const filteredArray = favoriteRecipes.filter((recipe) => recipe.recipeId !== id);
-      RemoveFavorite(filteredArray);
-    }
-  };
+const WrappedFavoritesModule = () => {
+  const { userFavorites, RemoveFavorite, removeFromFavorites } = useRemoveFavorite();
+
+  // const removeFromFavorites = (id: number) => {
+  //   if (userFavorites && userFavorites.length > 0) {
+  //     const filteredArray = userFavorites.filter((recipe) => recipe.recipeId !== id);
+  //     RemoveFavorite(filteredArray);
+  //   }
+  // };
 
   const favoriteRecipesList =
-    favoriteRecipes &&
-    favoriteRecipes.map((recipe: FavoriteRecipeType) => {
+    userFavorites &&
+    userFavorites.map((recipe: FavoriteRecipeType) => {
       return (
         <RecipeCard
           title={recipe.title}
@@ -37,10 +40,10 @@ const WrappedFavoritesModule = ({ favoriteRecipes, setUserFavorites, RemoveFavor
         </Module.Paragraph>
       </Module.Container>
       <Module.Container>
-        {favoriteRecipes && favoriteRecipes.length > 0 && (
+        {userFavorites && userFavorites.length > 0 && (
           <div className='flex p-6 bg-gray-100 h-80 rounded overflow-x-auto'>{favoriteRecipesList}</div>
         )}
-        {favoriteRecipes && favoriteRecipes.length === 0 && (
+        {userFavorites && userFavorites.length === 0 && (
           <span className='bg-gray-100 h-80 rounded flex items-center justify-center text-gray-600 text-2xl font-light'>
             Your favorite recipes will show up here once you add some!
           </span>

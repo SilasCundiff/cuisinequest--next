@@ -1,11 +1,12 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { truncate } from '@/lib/helpers';
 interface RecipeCardProps {
   title: string;
   recipeId: number;
   inFavoritesMenu?: boolean;
   removeFromFavorites?: (recipeId) => void;
-  className: string;
+  className?: string;
 }
 
 const apiKey = process.env.NEXT_PUBLIC_RECIPES_API_KEY;
@@ -27,16 +28,19 @@ const RecipeCard = ({
   return (
     <div
       className='w-64 h-60 mr-12 rounded bg-white relative group'
-      style={{ minWidth: '300px', maxWidth: '300px', minHeight: '260px' }}
+      style={{ minWidth: '300px', maxWidth: '300px', minHeight: '280px' }}
     >
       <div className='flex flex-col h-full w-full'>
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          className='m-2'
-          src={`https://spoonacular.com/recipeImages/${recipeId}-312x231.jpg`}
-          alt={`Recipe: title`}
-        />
-        <div className='mt-auto text-green-600 text-xl font-bold mb-3'>
+        <div className='m-2'>
+          <Image
+            width={312}
+            height={231}
+            layout={'intrinsic'}
+            src={`https://spoonacular.com/recipeImages/${recipeId}-312x231.jpg`}
+            alt={`Recipe: title`}
+          />
+        </div>
+        <div className='mt-auto text-green-600 text-xl font-bold mb-4'>
           <div className='text-center'>{truncatedTitle}</div>
         </div>
       </div>

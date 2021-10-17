@@ -3,7 +3,7 @@ import '../styles/index.css';
 import { UserProvider } from '@/contexts/UserContext';
 import { SearchProvider } from '@/contexts/SearchContext';
 import { RecipeListProvider } from '@/contexts/RecipeListContext';
-import { dummyData } from '../testData/exampleSearchResponse';
+import { Toaster } from 'react-hot-toast';
 import { useUserData } from '../lib/hooks';
 import Nav from '@/components/Nav';
 import GlobalStyle from '../styles/GlobalStyle';
@@ -46,6 +46,7 @@ function MyApp({ Component, pageProps }) {
             <div className='min-h-screen min-w-screen'>
               <Component {...pageProps} />
             </div>
+            <Toaster position='bottom-center' />
             <Footer />
           </RecipeListProvider>
         </SearchProvider>

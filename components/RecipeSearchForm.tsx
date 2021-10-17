@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Search } from './Search/Search';
 import { useUserContext } from '@/contexts/UserContext';
 import { useSearchContext } from '@/contexts/SearchContext';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Checkbox } from './FormComponents/Checkbox';
 import IntoleranceDropdown from './Dropsdowns/IntoleranceDropdown';
 import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
+import Router from 'next/router';
 
 const queryStringBuilder: (currentQuery: string, paramKey: string, paramValues: string) => string = (
   qry,
@@ -30,6 +31,7 @@ const RecipeNavSearch = () => {
     setPreviousRecipeList,
     previousRecipeList,
   } = useRecipeListContext();
+
   const [search, setSearch] = useState('');
   const [filterByDiet, setFilterByDiet] = useState(false);
   const [filterByIntolerance, setFilterByIntolerance] = useState(false);
@@ -51,7 +53,6 @@ const RecipeNavSearch = () => {
     if (search === '') {
       return;
     }
-    setLoadingRecipes(true);
     let query = `&query=${search}`;
 
     if (user && username) {
@@ -89,6 +90,7 @@ const RecipeNavSearch = () => {
       return;
     }
     setPreviousSearch(currentSearch);
+    setLoadingRecipes(true);
 
     axios
       .get(
@@ -100,6 +102,7 @@ const RecipeNavSearch = () => {
         setCurrentRecipeList(searchRes);
         setTerm(StringCapitalizer(search));
         setLoadingRecipes(false);
+        Router.push('/search');
       });
     // return;
   };
