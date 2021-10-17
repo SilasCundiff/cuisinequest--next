@@ -100,3 +100,32 @@ export const useRemoveFavorite = () => {
 
   return { userFavorites, RemoveFavorite, removeFromFavorites };
 };
+
+
+export const useAddFavorite = () => {
+  const { favoriteRecipes, username } = useUserContext();
+
+  const [userFavorites, setUserFavorites] = useState(favoriteRecipes);
+
+  const addToFavorites = (id: number, title: string) => {
+      const newRecipe = {recipeId: id, title};
+      const updatedFavorites = userFavorites.unshift(newRecipe);
+      AddFavorite(updatedFavorites);
+  };
+
+  const AddFavorite = async (newFavorites) => {
+    const usernameDoc = firestore.doc(`usernames/${username}`);
+    try {
+      await usernameDoc.update('favoriteRecipes', newFavorites);
+    } catch (e) {
+      console.log(`e`, e);
+    }
+    successfulSave('Recipe Added!', 'Favorite Recipes updated!');
+  };
+
+  useEffect(() => {
+    setUserFavorites(favoriteRecipes);
+  }, [favoriteRecipes]);
+
+  return { userFavorites, AddFavorite, addToFavorites };
+};

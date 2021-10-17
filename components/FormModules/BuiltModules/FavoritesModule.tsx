@@ -5,14 +5,7 @@ import { memo } from 'react';
 import { useRemoveFavorite } from '@/lib/hooks';
 
 const WrappedFavoritesModule = () => {
-  const { userFavorites, RemoveFavorite, removeFromFavorites } = useRemoveFavorite();
-
-  // const removeFromFavorites = (id: number) => {
-  //   if (userFavorites && userFavorites.length > 0) {
-  //     const filteredArray = userFavorites.filter((recipe) => recipe.recipeId !== id);
-  //     RemoveFavorite(filteredArray);
-  //   }
-  // };
+  const { userFavorites, removeFromFavorites } = useRemoveFavorite();
 
   const favoriteRecipesList =
     userFavorites &&

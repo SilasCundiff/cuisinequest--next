@@ -17,8 +17,9 @@ module.exports = {
       160: '160px',
       200: '200px',
       screen: '99.9vh',
+      '5/6': '83.333333%',
     },
-    maxHeight: { 80: '80%', 810: '810px', 24: '24px', 240: 'min-content' },
+    maxHeight: { 80: '80%', 810: '810px', 24: '24px', 240: 'min-content', '5/6': '83.333333%' },
     minWidth: {
       0: '0',
       24: '24px',

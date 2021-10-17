@@ -104,7 +104,6 @@ const RecipeNavSearch = () => {
         setLoadingRecipes(false);
         Router.push('/search');
       });
-    // return;
   };
 
   const setListItemState = useCallback(

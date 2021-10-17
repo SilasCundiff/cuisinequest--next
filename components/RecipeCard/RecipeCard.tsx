@@ -1,28 +1,31 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { truncate } from '@/lib/helpers';
+
 interface RecipeCardProps {
   title: string;
   recipeId: number;
   inFavoritesMenu?: boolean;
-  removeFromFavorites?: (recipeId) => void;
+  removeFromFavorites?: (recipeId: number) => void;
+  addToFavorites?: (recipeId: number, title: string) => void;
   className?: string;
 }
-
-const apiKey = process.env.NEXT_PUBLIC_RECIPES_API_KEY;
 
 const RecipeCard = ({
   title,
   recipeId,
   inFavoritesMenu = false,
   removeFromFavorites,
+  addToFavorites,
   className = '',
 }: RecipeCardProps) => {
   const truncatedTitle = truncate(title, 20);
 
-  const handleRemoval = (e) => {
-    e.preventDefault();
+  const handleRemoval = () => {
     removeFromFavorites(recipeId);
+  };
+  const handleAdd = () => {
+    addToFavorites(recipeId, title);
   };
 
   return (
@@ -47,7 +50,7 @@ const RecipeCard = ({
       {inFavoritesMenu && (
         <div className='min-w-full inset-0 mr-12 rounded absolute bg-black bg-opacity-50 flex flex-col justify-center transition-opacity opacity-0 group-hover:opacity-100'>
           <button className='rounded transition-colors bg-green-500 hover:bg-green-600 mb-4 min-w-3/4 max-w-3/4 px-2 p-3 mx-auto  text-sm font-bold text-white'>
-            Go to recipe
+            <Link href={`/recipes/${recipeId}`}>Go to recipe</Link>
           </button>
           <button
             onClick={handleRemoval}
