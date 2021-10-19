@@ -3,7 +3,7 @@ import axios from 'axios';
 import Container from '@/components/ReusableComponents/Containers/Container';
 import ListBox from '@/components/ReusableComponents/ListBoxes/ListBox';
 import { useUserContext } from '@/contexts/UserContext';
-import { useRemoveFavorite, useAddFavorite } from '@/lib/hooks';
+import { useRemoveFavorite, useAddFavorite } from '@/lib/hooks/';
 import DOMPurify from 'isomorphic-dompurify';
 import Image from 'next/image';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';

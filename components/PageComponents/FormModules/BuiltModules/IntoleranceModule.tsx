@@ -1,9 +1,9 @@
 import { memo, useCallback, useMemo } from 'react';
 import Module from '@/components/PageComponents/FormModules/Module';
 import { Checkbox } from '@/components/ReusableComponents/Checkbox';
-import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
+import { stringCapitalizer } from '@/lib/helpers';
 import { initialIntolerance } from '@/lib/initialIntoleranceState';
-import { IntoleranceTypes } from '@/types/types';
+import { IntoleranceTypes } from '@/types/';
 
 const WrappedIntoleranceModule = (props) => {
   const { userIntolerance = initialIntolerance, setUserIntolerance } = props;
@@ -28,7 +28,7 @@ const WrappedIntoleranceModule = (props) => {
             } text-3xl font-bold ml-12 mr-auto cursor-pointer`}
           >
             <Checkbox className='mr-1' checked={intolerance.avoid} onChange={(e) => handleAvoidState(e, index)} />
-            {StringCapitalizer(intolerance.name)}
+            {stringCapitalizer(intolerance.name)}
           </label>
         </div>
       ))

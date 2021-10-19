@@ -6,7 +6,7 @@ import { DietSelect } from '@/components/ReusableComponents/Selects/DietSelect';
 import { useUserContext } from '@/contexts/UserContext';
 import { useSearchContext } from '@/contexts/SearchContext';
 import { useRecipeListContext } from '@/contexts/RecipeListContext';
-import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
+import { stringCapitalizer } from '@/lib/helpers';
 import axios from 'axios';
 import Router from 'next/router';
 
@@ -75,7 +75,7 @@ const RecipeNavSearch = () => {
         for (const singleIngredient in dislikedIngredients) {
           if (Object.prototype.hasOwnProperty.call(dislikedIngredients, singleIngredient)) {
             const element = dislikedIngredients[singleIngredient];
-            IngredientsToFilter.push(StringCapitalizer(element.name));
+            IngredientsToFilter.push(stringCapitalizer(element.name));
           }
         }
         query = queryStringBuilder(query, 'excludeIngredients', IngredientsToFilter.toString());

@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, memo } from 'react';
 import Module from '@/components/PageComponents/FormModules/Module';
 import { Search } from '@/components/ReusableComponents/SearchInputs/Search';
 import ListBox from '@/components/ReusableComponents/ListBoxes/ListBox';
-import { DislikedIngredientsTypes } from '@/types/types';
+import { DislikedIngredientsTypes } from '@/types/';
 import axios from 'axios';
 import debounce from 'lodash.debounce';
 

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Nav from '@/components/GlobalComponents/Nav';
 import Footer from '@/components/GlobalComponents/Footer';
 import { UserProvider, RecipeListProvider, SearchProvider } from '@/contexts/index';
-import { useUserData } from '@/lib/hooks';
+import { useUserData } from '@/lib/hooks/';
 import GlobalStyle from '@/styles/GlobalStyle';
 import '@/styles/index.css';
 import { Toaster } from 'react-hot-toast';

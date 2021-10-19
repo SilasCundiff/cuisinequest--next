@@ -50,3 +50,6 @@ View [V1's github](https://github.com/SilasCundiff/cuisinequest)
 
 
 
+### A big lesson for me from this project.
+
+When creating a new project, set up path aliases immediately. It would make refactoring directory structure and file locations so much easier.

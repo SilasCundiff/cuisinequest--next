@@ -1,6 +1,6 @@
 import { memo } from 'react';
-import { listBuilder } from '@/lib/helpers/listBuilder';
-import { DislikedIngredientsTypes } from '@/types/types';
+import { listBuilder } from '@/lib/helpers/';
+import { DislikedIngredientsTypes } from '@/types/';
 
 interface ListBoxProps {
   heading: string;

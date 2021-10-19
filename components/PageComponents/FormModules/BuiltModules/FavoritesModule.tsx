@@ -1,8 +1,8 @@
 import { memo } from 'react';
 import Module from '@/components/PageComponents/FormModules/Module';
 import RecipeCard from '@/components/ReusableComponents/RecipeCards/RecipeCard';
-import { useRemoveFavorite } from '@/lib/hooks';
-import { FavoriteRecipeType } from '@/types/types';
+import { useRemoveFavorite } from '@/lib/hooks/';
+import { FavoriteRecipeType } from '@/types/';
 
 const WrappedFavoritesModule = () => {
   const { userFavorites, removeFromFavorites } = useRemoveFavorite();

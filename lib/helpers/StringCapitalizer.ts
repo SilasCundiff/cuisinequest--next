@@ -1,5 +1,5 @@
 
-export const StringCapitalizer = (str: string): string => {
+export const stringCapitalizer = (str: string): string => {
   const capitalizedString = str.replace('_', ' ');
   const words = capitalizedString.split(' ')
 

@@ -1,5 +1,5 @@
-import { truncate } from '@/lib/helpers';
-import { DislikedIngredientsTypes } from '@/types/types';
+import { truncate } from '@/lib/helpers/';
+import { DislikedIngredientsTypes } from '@/types/';
 import Image from 'next/image';
 import { v4 as uuidv4 } from 'uuid';
 

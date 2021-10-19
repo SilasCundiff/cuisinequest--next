@@ -1,17 +1,16 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useUserContext } from '@/contexts/UserContext';
-import { firestore } from '@/lib/firebase';
-import debounce from 'lodash.debounce';
-import { Toaster } from 'react-hot-toast';
-
+import { successfulSave } from '@/components/GlobalComponents/Toaster/ToasterConfig';
 import {
   IntoleranceModule,
   DietTypeModule,
   DislikedIngredientsModule,
 } from '@/components/PageComponents/FormModules/BuiltModules';
-import { UsernameModule } from './FormModules/BuiltModules/UsernameModule';
+import { UsernameModule } from '@/components/PageComponents/FormModules/BuiltModules/UsernameModule';
+import { useUserContext } from '@/contexts/UserContext';
+import { firestore } from '@/lib/firebase';
 import { initialIntolerance } from '@/lib/initialIntoleranceState';
-import { successfulSave } from '../GlobalComponents/Toaster/ToasterConfig';
+import debounce from 'lodash.debounce';
+import { Toaster } from 'react-hot-toast';
 
 const FirstLoginForm = () => {
   const { diet = 'unselected', intolerance = initialIntolerance, dislikedIngredients = [], user } = useUserContext();

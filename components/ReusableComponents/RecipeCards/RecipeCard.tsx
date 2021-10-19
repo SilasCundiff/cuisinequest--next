@@ -1,7 +1,7 @@
 import { useState, useEffect, memo } from 'react';
 import { useUserContext } from '@/contexts/UserContext';
-import { useRemoveFavorite, useAddFavorite } from '@/lib/hooks';
-import { truncate } from '@/lib/helpers';
+import { useRemoveFavorite, useAddFavorite } from '@/lib/hooks/';
+import { truncate } from '@/lib/helpers/';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';

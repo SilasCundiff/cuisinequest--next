@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
+import { stringCapitalizer } from '@/lib/helpers/';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -30,7 +30,7 @@ const IntoleranceDropdown = ({ dropdownListItems, setListItemState }) => {
                 </Icon>
               ) : null}
             </span>
-            {StringCapitalizer(listItem.name)}
+            {stringCapitalizer(listItem.name)}
           </div>
         );
       })

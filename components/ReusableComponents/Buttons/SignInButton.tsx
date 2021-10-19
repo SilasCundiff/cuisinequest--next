@@ -1,5 +1,5 @@
 import Container from '@/components/ReusableComponents/Containers/Container';
-import { signInWithGoogle } from '@/lib/hooks';
+import { useSignInWithGoogle } from '@/lib/hooks/';
 import Image from 'next/image';
 export const SignInButton = () => {
   return (
@@ -13,7 +13,7 @@ export const SignInButton = () => {
         </h1>
         <button
           className='font-semibold px-4 py-3 rounded text-md bg-gray-200 hover:bg-gray-300 text-gray-700 flex items-center text-2xl my-6 '
-          onClick={signInWithGoogle}
+          onClick={useSignInWithGoogle}
         >
           <span className='mr-2 flex justify-center items-center'>
             <Image layout='fixed' width='28' height='28' src='/google.png' alt="google's logo" />
