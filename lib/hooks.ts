@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { auth, firestore, googleAuthProvider } from './firebase';
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { UserData } from 'types';
-import { successfulSave } from '@/components/Toaster/ToasterConfig';
+import { successfulSave } from '@/components/GlobalComponents/Toaster/ToasterConfig';
 import { useUserContext } from '@/contexts/UserContext';
+import { auth, firestore, googleAuthProvider } from '@/lib/firebase';
+import { UserData } from '@/types/types';
+import { useAuthState } from 'react-firebase-hooks/auth';
 
 
 export const useUserData = () : UserData => {
@@ -15,6 +15,7 @@ export const useUserData = () : UserData => {
   const [intolerance, setIntolerance] = useState(undefined);
   const [favoriteRecipes, setFavoriteRecipes] = useState(undefined);
   const [dislikedIngredients, setDislikedIngredients] = useState(undefined);
+  
   useEffect(() => {
     let unsubscribe;
 
@@ -80,9 +81,7 @@ export const useRemoveFavorite = () => {
 
   const removeFromFavorites = (id: number) => {
     if (userFavorites && userFavorites.length > 0) {
-      const filteredArray = userFavorites.filter((recipe) => recipe.recipeId !== id);
-      console.log(filteredArray);
-      
+      const filteredArray = userFavorites.filter((recipe) => recipe.recipeId !== id); 
       RemoveFavorite(filteredArray);
     }
   };

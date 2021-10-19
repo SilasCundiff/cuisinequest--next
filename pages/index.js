@@ -1,10 +1,8 @@
-import { useUserContext } from '@/contexts/UserContext';
+import Logo from '@/components/ReusableComponents/Logos/Logo';
 import Image from 'next/image';
-import Logo from '@/components/Logo/Logo';
 import Link from 'next/link';
-export default function Home() {
-  const { user, username } = useUserContext();
 
+export default function Home() {
   return (
     <div className='font-sora bg-gray-50'>
       <div className='container-full mb-52 h-screen max-h-screen w-screen max-w-screen bg-hero-image bg-no-repeat bg-cover bg-fixed bg-center'>

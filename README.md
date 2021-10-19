@@ -38,10 +38,10 @@ The first version was a simple app that only allowed the user to perform a simpl
 
 Screenshots of V1:
 
-  <img src="cuisinequest-desktop.png"
+  <img src="project_assets/cuisinequest-desktop.png"
        alt="Desktop View"
        style=" margin-right: 10px; width: 75%;" />
-  <img src="cuisinequest-mobile.png"
+  <img src="project_assets/cuisinequest-mobile.png"
        alt="Desktop View"
        style="margin-right: 10px; width: 25%;" />
 

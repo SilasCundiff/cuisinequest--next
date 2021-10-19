@@ -1,9 +1,9 @@
-import { useUserContext } from '@/contexts/UserContext';
 import { useEffect } from 'react';
-import FirstLoginForm from '@/components/FirstLoginForm';
+import FirstLoginForm from '@/components/PageComponents/FirstLoginForm';
+import { SignInButton } from '@/components/ReusableComponents/Buttons/SignInButton';
+import Container from '@/components/ReusableComponents/Containers/Container';
+import { useUserContext } from '@/contexts/index';
 import Router from 'next/router';
-import { SignInButton } from '@/components/Button/SignInButton';
-import Container from '@/components/Containers/Container';
 
 export default function Login() {
   const { user, username } = useUserContext();

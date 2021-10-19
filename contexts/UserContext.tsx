@@ -1,5 +1,5 @@
 import { createContext, useContext, ReactNode } from 'react';
-import { UserData } from '../types';
+import { UserData } from '../types/types';
 
 interface UserProviderProps {
   children: ReactNode;

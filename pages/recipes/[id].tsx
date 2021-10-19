@@ -1,14 +1,14 @@
-import axios from 'axios';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import Container from '@/components/ReusableComponents/Containers/Container';
+import ListBox from '@/components/ReusableComponents/ListBoxes/ListBox';
 import { useUserContext } from '@/contexts/UserContext';
 import { useRemoveFavorite, useAddFavorite } from '@/lib/hooks';
-import Container from '@/components/Containers/Container';
 import DOMPurify from 'isomorphic-dompurify';
-import ListBox from '@/components/FormComponents/ListBox';
 import Image from 'next/image';
-import styled from 'styled-components';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { FaUtensils, FaUtensilSpoon, FaStopwatch } from 'react-icons/fa';
+import styled from 'styled-components';
 
 const StyledSummaryContainer = styled.div`
   color: rgb(31, 41, 55);
@@ -31,7 +31,6 @@ const Recipe = ({ recipeData }) => {
   const { addToFavorites } = useAddFavorite();
   const { removeFromFavorites } = useRemoveFavorite();
   const [recipeFavorited, setRecipeFavorited] = useState(false);
-  console.log(recipeData);
 
   const handleFavorite = () => {
     if (user && username) {

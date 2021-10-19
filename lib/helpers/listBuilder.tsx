@@ -1,7 +1,7 @@
 import { truncate } from '@/lib/helpers';
-import { v4 as uuidv4 } from 'uuid';
+import { DislikedIngredientsTypes } from '@/types/types';
 import Image from 'next/image';
-import { DislikedIngredientsTypes } from '../../types';
+import { v4 as uuidv4 } from 'uuid';
 
 export const listBuilder = (list: Array<DislikedIngredientsTypes>, moveFunc) => {
   if (list && list.length > 0) {
