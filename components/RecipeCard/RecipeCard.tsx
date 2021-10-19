@@ -1,6 +1,11 @@
 import Link from 'next/link';
+import { useState, useEffect, memo } from 'react';
 import Image from 'next/image';
 import { truncate } from '@/lib/helpers';
+import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
+import { FaLink } from 'react-icons/fa';
+import { useRemoveFavorite, useAddFavorite } from '@/lib/hooks';
+import { useUserContext } from '@/contexts/UserContext';
 
 interface RecipeCardProps {
   title: string;
@@ -11,23 +16,34 @@ interface RecipeCardProps {
   className?: string;
 }
 
-const RecipeCard = ({
-  title,
-  recipeId,
-  inFavoritesMenu = false,
-  removeFromFavorites,
-  addToFavorites,
-  className = '',
-}: RecipeCardProps) => {
+const WrappedRecipeCard = ({ title, recipeId, inFavoritesMenu = false, className = '' }: RecipeCardProps) => {
+  const { user, username, favoriteRecipes } = useUserContext();
+  const { addToFavorites } = useAddFavorite();
+  const { removeFromFavorites } = useRemoveFavorite();
+  const [recipeFavorited, setRecipeFavorited] = useState(false);
   const truncatedTitle = truncate(title, 20);
 
-  const handleRemoval = () => {
-    removeFromFavorites(recipeId);
-  };
-  const handleAdd = () => {
-    addToFavorites(recipeId, title);
+  const handleFavorite = () => {
+    if (user && username) {
+      if (recipeFavorited) {
+        return removeFromFavorites(recipeId);
+      }
+      if (!recipeFavorited) {
+        return addToFavorites(recipeId, title);
+      }
+    }
   };
 
+  useEffect(() => {
+    const recipeInFavorites =
+      favoriteRecipes &&
+      favoriteRecipes.length > 0 &&
+      favoriteRecipes.some((recipe) => {
+        return recipe.recipeId === recipeId;
+      });
+    setRecipeFavorited(recipeInFavorites);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [favoriteRecipes]);
   return (
     <div
       className='w-64 h-60 mr-12 rounded bg-white relative group'
@@ -48,20 +64,28 @@ const RecipeCard = ({
         </div>
       </div>
       {inFavoritesMenu && (
-        <div className='min-w-full inset-0 mr-12 rounded absolute bg-black bg-opacity-50 flex flex-col justify-center transition-opacity opacity-0 group-hover:opacity-100'>
-          <button className='rounded transition-colors bg-green-500 hover:bg-green-600 mb-4 min-w-3/4 max-w-3/4 px-2 p-3 mx-auto  text-sm font-bold text-white'>
-            <Link href={`/recipes/${recipeId}`}>Go to recipe</Link>
-          </button>
-          <button
-            onClick={handleRemoval}
-            className='rounded transition-colors bg-red-500 hover:bg-red-600  min-w-3/4 max-w-3/4 px-2 p-3 mx-auto  text-sm font-bold text-white'
-          >
-            Remove from favorites
-          </button>
+        <div className='min-w-full inset-0 mr-12 rounded absolute bg-green-50 bg-opacity-70 justify-center transition-opacity opacity-0 group-hover:opacity-100 flex'>
+          <div className='m-auto flex min-w-full'>
+            <button className='text-6xl text-green-900 my-auto mx-auto hover:text-green-800 transition-colors'>
+              <Link passHref href={`/recipes/${recipeId}`}>
+                <FaLink />
+              </Link>
+            </button>
+            {user && username && (
+              <button
+                onClick={handleFavorite}
+                className='text-7xl text-green-500 my-auto mx-auto hover:text-green-400 transition-colors'
+              >
+                {recipeFavorited ? <AiFillHeart /> : <AiOutlineHeart />}
+              </button>
+            )}
+          </div>
         </div>
       )}
     </div>
   );
 };
+
+const RecipeCard = memo(WrappedRecipeCard);
 
 export default RecipeCard;

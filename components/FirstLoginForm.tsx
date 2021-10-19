@@ -6,7 +6,6 @@ import { Toaster } from 'react-hot-toast';
 
 import { IntoleranceModule, DietTypeModule, DislikedIngredientsModule } from '@/components/FormModules/BuiltModules';
 import { UsernameModule } from './FormModules/BuiltModules/UsernameModule';
-import { placeholderFavorites } from '../testData/placeholderFavorites';
 import { initialIntolerance } from '@/lib/initializerData';
 import { successfulSave } from './Toaster/ToasterConfig';
 
@@ -74,7 +73,6 @@ const FirstLoginForm = () => {
       intolerance: userIntolerance,
       diet: userDiet,
       dislikedIngredients: userDisliked,
-      favoriteRecipes: placeholderFavorites,
     });
 
     await batch.commit();

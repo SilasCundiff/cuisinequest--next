@@ -4,26 +4,17 @@ import { v4 as uuidv4 } from 'uuid';
 import Container from '@/components/Containers/Container';
 import { useSearchContext } from '@/contexts/SearchContext';
 import Loader from '@/components/Loader';
-import { useRemoveFavorite } from '@/lib/hooks';
 
 const Search = () => {
   const { currentRecipeList, loadingRecipes } = useRecipeListContext();
-  const { removeFromFavorites } = useRemoveFavorite();
+
   const { term } = useSearchContext();
   const recipeList =
     currentRecipeList &&
     currentRecipeList.results.map((recipe: { id: number; title: string }) => {
       const { id, title } = recipe;
-      return (
-        <RecipeCard
-          removeFromFavorites={removeFromFavorites}
-          className='bg-green-500'
-          recipeId={id}
-          title={title}
-          key={uuidv4()}
-          inFavoritesMenu
-        />
-      );
+
+      return <RecipeCard className='bg-green-500' recipeId={id} title={title} key={uuidv4()} inFavoritesMenu />;
     });
 
   return (

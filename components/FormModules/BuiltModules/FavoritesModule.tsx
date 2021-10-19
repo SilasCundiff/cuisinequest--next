@@ -9,6 +9,7 @@ const WrappedFavoritesModule = () => {
 
   const favoriteRecipesList =
     userFavorites &&
+    userFavorites.length > 0 &&
     userFavorites.map((recipe: FavoriteRecipeType) => {
       return (
         <RecipeCard
@@ -36,8 +37,8 @@ const WrappedFavoritesModule = () => {
         {userFavorites && userFavorites.length > 0 && (
           <div className='flex p-6 bg-gray-100 h-80 rounded overflow-x-auto'>{favoriteRecipesList}</div>
         )}
-        {userFavorites && userFavorites.length === 0 && (
-          <span className='bg-gray-100 h-80 rounded flex items-center justify-center text-gray-600 text-2xl font-light'>
+        {!userFavorites && (
+          <span className='bg-gray-100 h-96 rounded flex items-center justify-center text-gray-600 text-2xl font-light'>
             Your favorite recipes will show up here once you add some!
           </span>
         )}

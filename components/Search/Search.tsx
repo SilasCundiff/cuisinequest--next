@@ -27,7 +27,7 @@ const Search = ({
   const handleFocus = (e) => e.target.select();
   return (
     <div
-      className={`${className} min-w-full mb-5 text-center border-gray-400 border rounded-2xl focus-within:border-green-500`}
+      className={`${className} min-w-full mb-4 text-center border-gray-400 border rounded-xl focus-within:border-green-500`}
       style={{ minWidth: '100%', width: '100%' }}
     >
       <div className='w-full focus-within:text-green-500 text-gray-700 text-2xl font-light tracking-widest px-2 py-1 rounded relative'>

@@ -5,6 +5,7 @@ import { UserData } from 'types';
 import { successfulSave } from '@/components/Toaster/ToasterConfig';
 import { useUserContext } from '@/contexts/UserContext';
 
+
 export const useUserData = () : UserData => {
 
   const [user] = useAuthState(auth);
@@ -75,11 +76,13 @@ export const signInWithGoogle = async () => {
 export const useRemoveFavorite = () => {
   const { favoriteRecipes, username } = useUserContext();
 
-  const [userFavorites, setUserFavorites] = useState(favoriteRecipes);
+  const [userFavorites, setUserFavorites] = useState(favoriteRecipes || []);
 
   const removeFromFavorites = (id: number) => {
     if (userFavorites && userFavorites.length > 0) {
       const filteredArray = userFavorites.filter((recipe) => recipe.recipeId !== id);
+      console.log(filteredArray);
+      
       RemoveFavorite(filteredArray);
     }
   };
@@ -104,12 +107,17 @@ export const useRemoveFavorite = () => {
 
 export const useAddFavorite = () => {
   const { favoriteRecipes, username } = useUserContext();
-
-  const [userFavorites, setUserFavorites] = useState(favoriteRecipes);
+  const [userFavorites, setUserFavorites] = useState(favoriteRecipes || []);
 
   const addToFavorites = (id: number, title: string) => {
       const newRecipe = {recipeId: id, title};
-      const updatedFavorites = userFavorites.unshift(newRecipe);
+      
+      if (!userFavorites){
+        const updatedFavorites = [newRecipe];
+      AddFavorite(updatedFavorites);
+        
+      }
+      const updatedFavorites = [...userFavorites, newRecipe];
       AddFavorite(updatedFavorites);
   };
 
