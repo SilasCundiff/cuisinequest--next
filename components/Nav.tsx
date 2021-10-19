@@ -16,7 +16,7 @@ const Nav = () => {
       <div className='max-w-1/6 min-w-1/6'>
         <Link passHref href='/'>
           <a>
-            <Logo className='' />
+            <Logo />
           </a>
         </Link>
       </div>

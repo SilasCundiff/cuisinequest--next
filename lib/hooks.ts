@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react';
 import { auth, firestore, googleAuthProvider } from './firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { UserData } from 'types';
+import { successfulSave } from '@/components/Toaster/ToasterConfig';
+import { useUserContext } from '@/contexts/UserContext';
+
 
 export const useUserData = () : UserData => {
 
@@ -66,4 +69,71 @@ export const signInWithGoogle = async () => {
   } catch (err) {
     console.log(err);
   }
+};
+
+
+
+export const useRemoveFavorite = () => {
+  const { favoriteRecipes, username } = useUserContext();
+
+  const [userFavorites, setUserFavorites] = useState(favoriteRecipes || []);
+
+  const removeFromFavorites = (id: number) => {
+    if (userFavorites && userFavorites.length > 0) {
+      const filteredArray = userFavorites.filter((recipe) => recipe.recipeId !== id);
+      console.log(filteredArray);
+      
+      RemoveFavorite(filteredArray);
+    }
+  };
+
+  const RemoveFavorite = async (newFavorites) => {
+    const usernameDoc = firestore.doc(`usernames/${username}`);
+    try {
+      await usernameDoc.update('favoriteRecipes', newFavorites);
+    } catch (e) {
+      console.log(`e`, e);
+    }
+    successfulSave('Recipe removed!', 'Favorite Recipes updated!');
+  };
+
+  useEffect(() => {
+    setUserFavorites(favoriteRecipes);
+  }, [favoriteRecipes]);
+
+  return { userFavorites, RemoveFavorite, removeFromFavorites };
+};
+
+
+export const useAddFavorite = () => {
+  const { favoriteRecipes, username } = useUserContext();
+  const [userFavorites, setUserFavorites] = useState(favoriteRecipes || []);
+
+  const addToFavorites = (id: number, title: string) => {
+      const newRecipe = {recipeId: id, title};
+      
+      if (!userFavorites){
+        const updatedFavorites = [newRecipe];
+      AddFavorite(updatedFavorites);
+        
+      }
+      const updatedFavorites = [...userFavorites, newRecipe];
+      AddFavorite(updatedFavorites);
+  };
+
+  const AddFavorite = async (newFavorites) => {
+    const usernameDoc = firestore.doc(`usernames/${username}`);
+    try {
+      await usernameDoc.update('favoriteRecipes', newFavorites);
+    } catch (e) {
+      console.log(`e`, e);
+    }
+    successfulSave('Recipe Added!', 'Favorite Recipes updated!');
+  };
+
+  useEffect(() => {
+    setUserFavorites(favoriteRecipes);
+  }, [favoriteRecipes]);
+
+  return { userFavorites, AddFavorite, addToFavorites };
 };

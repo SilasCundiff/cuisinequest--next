@@ -24,14 +24,17 @@ const Search = ({
   const preventEnter = (e) => {
     disableEnterKey && e.key === 'Enter' && e.preventDefault();
   };
-
+  const handleFocus = (e) => e.target.select();
   return (
     <div
-      className={`${className} min-w-full mb-5 text-center border-gray-400 border rounded-2xl focus-within:border-green-500`}
+      className={`${className} min-w-full mb-4 text-center border-gray-400 border rounded-xl focus-within:border-green-500`}
       style={{ minWidth: '100%', width: '100%' }}
     >
       <div className='w-full focus-within:text-green-500 text-gray-700 text-2xl font-light tracking-widest px-2 py-1 rounded relative'>
-        <button className='absolute hover:bg-gray-200 rounded p-4 focus:outline-none w-10 h-10 flex items-center justify-center'>
+        <button
+          disabled={disableSearchButton}
+          className='absolute hover:bg-gray-200 rounded p-4 focus:outline-none w-10 h-10 flex items-center justify-center'
+        >
           <MemoFontAwesomeIcon icon={faSearch} />
         </button>
         <input
@@ -42,6 +45,7 @@ const Search = ({
           value={value}
           onChange={onChange}
           onKeyPress={preventEnter}
+          onFocus={handleFocus}
         />
       </div>
     </div>

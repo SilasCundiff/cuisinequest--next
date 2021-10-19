@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { Search } from './Search/Search';
 import { useUserContext } from '@/contexts/UserContext';
 import { useSearchContext } from '@/contexts/SearchContext';
@@ -8,6 +8,7 @@ import axios from 'axios';
 import { Checkbox } from './FormComponents/Checkbox';
 import IntoleranceDropdown from './Dropsdowns/IntoleranceDropdown';
 import { StringCapitalizer } from '@/lib/helpers/StringCapitalizer';
+import Router from 'next/router';
 
 const queryStringBuilder: (currentQuery: string, paramKey: string, paramValues: string) => string = (
   qry,
@@ -30,6 +31,7 @@ const RecipeNavSearch = () => {
     setPreviousRecipeList,
     previousRecipeList,
   } = useRecipeListContext();
+
   const [search, setSearch] = useState('');
   const [filterByDiet, setFilterByDiet] = useState(false);
   const [filterByIntolerance, setFilterByIntolerance] = useState(false);
@@ -51,7 +53,6 @@ const RecipeNavSearch = () => {
     if (search === '') {
       return;
     }
-    setLoadingRecipes(true);
     let query = `&query=${search}`;
 
     if (user && username) {
@@ -89,6 +90,7 @@ const RecipeNavSearch = () => {
       return;
     }
     setPreviousSearch(currentSearch);
+    setLoadingRecipes(true);
 
     axios
       .get(
@@ -100,8 +102,8 @@ const RecipeNavSearch = () => {
         setCurrentRecipeList(searchRes);
         setTerm(StringCapitalizer(search));
         setLoadingRecipes(false);
+        Router.push('/search');
       });
-    // return;
   };
 
   const setListItemState = useCallback(
@@ -127,24 +129,25 @@ const RecipeNavSearch = () => {
       />
 
       {user && username && (
-        <div className='flex h-8 min-w-full max-w-full '>
-          <div className='flex min-w-1/4 '>
+        <div className='flex h-8 min-w-full max-w-full text-xl'>
+          <div className='flex '>
             <label className={`my-auto`}>
               <Checkbox
+                className='pt-2'
                 checked={!filterByDiet}
                 emptyToCheck
                 inline={false}
                 onChange={() => {
                   handleCheckToggle(filterByDiet, setFilterByDiet);
                 }}
-                className='my-auto'
               />
             </label>
             <DietSelect handleChange={handleDietChange} diet={diet} className='text-reg my-auto' />
           </div>
-          <div className='flex mx-auto min-w-1/4'>
+          <div className='ml-8 flex'>
             <label className={`my-auto`}>
               <Checkbox
+                className='pt-2'
                 checked={!filterByIntolerance}
                 emptyToCheck
                 inline={false}
@@ -155,19 +158,20 @@ const RecipeNavSearch = () => {
             </label>
             <IntoleranceDropdown dropdownListItems={intolerance} setListItemState={setListItemState} />
           </div>
-          <div className='flex min-w-1/4'>
-            <label className={`my-auto`}>
+          <div className='flex ml-8'>
+            <label className={`my-auto flex`}>
               <Checkbox
+                className='pt-2'
                 checked={!filterByDisliked}
                 emptyToCheck
                 inline={false}
-                onChange={(e) => {
+                onChange={() => {
                   handleCheckToggle(filterByDisliked, setFilterByDisliked);
                 }}
               />
             </label>
-            <div className='w-full bg-gray-50 border-gray-400 tracking-wider font-medium text-gray-400 rounded-md py-1 px-3 border text-center cursor-pointer'>
-              Your Dislikes List
+            <div className='w-full bg-gray-50 border-gray-400 tracking-wider font-medium text-gray-400 rounded-md py-1 px-3 border text-center cursor-pointer h-10'>
+              Your Dislikes
             </div>
           </div>
         </div>

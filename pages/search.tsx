@@ -7,22 +7,24 @@ import Loader from '@/components/Loader';
 
 const Search = () => {
   const { currentRecipeList, loadingRecipes } = useRecipeListContext();
+
   const { term } = useSearchContext();
   const recipeList =
     currentRecipeList &&
     currentRecipeList.results.map((recipe: { id: number; title: string }) => {
       const { id, title } = recipe;
-      return <RecipeCard className='bg-green-500' recipeId={id} title={title} key={uuidv4()} />;
+
+      return <RecipeCard className='bg-green-500' recipeId={id} title={title} key={uuidv4()} inFavoritesMenu />;
     });
 
   return (
     <div className='bg-gray-50'>
       {!recipeList && loadingRecipes && (
-        <Container>
+        <Container className='flex justify-center align-center mt-80'>
           <Loader />
         </Container>
       )}
-      {recipeList && (
+      {recipeList && !loadingRecipes && (
         <Container className='bg-gray-50 rounded-md max-w-66 p-10'>
           <div className='w-full h-12 -ml-20 text-2xl font-light text-green-500'>On a Quest for {term}!</div>
           <div className='grid grid-cols-3 m-w-1/2 gap-4 justify-items-center'>{recipeList}</div>

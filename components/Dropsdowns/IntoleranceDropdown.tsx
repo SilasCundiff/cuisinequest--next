@@ -40,8 +40,8 @@ const IntoleranceDropdown = ({ dropdownListItems, setListItemState }) => {
   return (
     <div
       onClick={() => setDropdownOpen(!dropdownOpen)}
-      className={`min-w-185 w-full bg-gray-50 border-gray-400 tracking-wider font-medium text-gray-400 rounded-md px-3 py-1 border flex flex-col cursor-pointer ${
-        dropdownOpen ? 'min-h-200' : 'h-auto'
+      className={`min-w-225 w-full bg-gray-50 border-gray-400 tracking-wider font-medium text-gray-400 rounded-md px-3 py-1 border flex flex-col cursor-pointer ${
+        dropdownOpen ? 'min-h-200' : 'h-10'
       }`}
     >
       <div className='mx-auto'>Intolerance</div>
