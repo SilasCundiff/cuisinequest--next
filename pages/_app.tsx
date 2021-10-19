@@ -1,13 +1,12 @@
 import { useState } from 'react';
-import '../styles/index.css';
-import { UserProvider } from '@/contexts/UserContext';
-import { SearchProvider } from '@/contexts/SearchContext';
-import { RecipeListProvider } from '@/contexts/RecipeListContext';
+import Nav from '@/components/GlobalComponents/Nav';
+import Footer from '@/components/GlobalComponents/Footer';
+import { UserProvider, RecipeListProvider, SearchProvider } from '@/contexts/index';
+import { useUserData } from '@/lib/hooks/';
+import GlobalStyle from '@/styles/GlobalStyle';
+import '@/styles/index.css';
 import { Toaster } from 'react-hot-toast';
-import { useUserData } from '../lib/hooks';
-import Nav from '@/components/Nav';
-import GlobalStyle from '../styles/GlobalStyle';
-import Footer from '@/components/Footer';
+
 function MyApp({ Component, pageProps }) {
   const userData = useUserData();
 
@@ -16,6 +15,7 @@ function MyApp({ Component, pageProps }) {
   const [currentRecipeList, setCurrentRecipeList] = useState();
   const [previousRecipeList, setPreviousRecipeList] = useState();
   const [loadingRecipes, setLoadingRecipes] = useState(false);
+
   const [term, setTerm] = useState();
 
   return (

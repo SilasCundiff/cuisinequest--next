@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import Container from '@/components/Containers/Container';
-import DashboardForm from '@/components/DashboardForm';
-import { useUserContext } from '@/contexts/UserContext';
-import FavoritesForm from '@/components/FavoritesForm';
+import DashboardForm from '@/components/PageComponents/DashboardForm';
+import FavoritesForm from '@/components/PageComponents/FavoritesForm';
+import Container from '@/components/ReusableComponents/Containers/Container';
+import { useUserContext } from '@/contexts/index';
 import Router from 'next/router';
 
 const Dashboard = () => {

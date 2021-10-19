@@ -6,8 +6,7 @@
       "@/styles/*": ["styles/*"],
       "@/contexts/*": ["contexts/*"],
       "@/lib/*": ["lib/*"],
-
-      
+      "@/types/*": ["types/index.ts"],
     },
     "target": "es5",
     "lib": [
@@ -31,7 +30,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "pages/_document.js"  ],
   "exclude": [
     "node_modules"
   ]

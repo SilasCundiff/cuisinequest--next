@@ -1,9 +1,9 @@
+import Container from '@/components/ReusableComponents/Containers/Container';
+import Loader from '@/components/ReusableComponents/Loaders/Loader';
+import RecipeCard from '@/components/ReusableComponents/RecipeCards/RecipeCard';
 import { useRecipeListContext } from '@/contexts/RecipeListContext';
-import RecipeCard from '@/components/RecipeCard/RecipeCard';
-import { v4 as uuidv4 } from 'uuid';
-import Container from '@/components/Containers/Container';
 import { useSearchContext } from '@/contexts/SearchContext';
-import Loader from '@/components/Loader';
+import { v4 as uuidv4 } from 'uuid';
 
 const Search = () => {
   const { currentRecipeList, loadingRecipes } = useRecipeListContext();
